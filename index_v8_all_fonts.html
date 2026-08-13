@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>دعوة زفاف</title>
+<style>
+:root{--bg:#fff;--bg2:#f7f3ee;--primary:#8b6f47;--secondary:#c6a96b;--text:#222;--heading:#8b6f47;--button:#8b6f47;--buttonText:#fff;--border:#c6a96b;--radius:12px;--maxWidth:900px;--spacing:40px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+.page{max-width:var(--maxWidth);margin:auto;overflow:hidden;background:var(--bg2)}
+section{padding:var(--spacing) 24px;text-align:center}
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;position:relative;background:var(--bg);background-size:cover;background-position:center}
+.card{border:1px solid var(--border);border-radius:20px;padding:28px;background:#ffffffcc;max-width:560px;width:90%}
+h1,h2{color:var(--heading)}.btn{display:inline-block;background:var(--button);color:var(--buttonText);padding:12px 22px;border-radius:var(--radius);text-decoration:none;border:1px solid var(--border);margin:8px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.box{border:1px solid var(--border);border-radius:14px;padding:16px}.full{grid-column:1/-1}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gallery img{width:100%;border-radius:14px;display:block}
+.musicBtn{position:fixed;left:16px;bottom:16px;z-index:20;width:48px;height:48px;border-radius:50%;border:1px solid var(--border);background:var(--button);color:var(--buttonText)}
+.fade{animation:fade .9s ease both}@keyframes fade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.slide{animation:slide .9s ease both}@keyframes slide{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.zoom{animation:zoom .9s ease both}@keyframes zoom{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+</style>
+<style id="customStyle"></style>
+</head>
+<body>
+<button id="musicBtn" class="musicBtn">♫</button>
+<div class="page" id="page">
+<section id="hero" class="hero">
+  <div class="card">
+    <div id="openingTitle">دعوة زفاف</div>
+    <h1 id="names"><span id="groom"></span> &amp; <span id="bride"></span></h1>
+    <div id="dateHero"></div>
+  </div>
+</section>
+
+<section id="messageSection"><h2 id="messageHeading">بسم الله الرحمن الرحيم</h2><p id="message"></p></section>
+
+<section id="locationSection">
+<h2 id="detailsHeading">تفاصيل المناسبة</h2>
+<div class="meta">
+<div class="box"><div>التاريخ</div><strong id="dateText"></strong></div>
+<div class="box"><div>الوقت</div><strong id="timeText"></strong></div>
+<div class="box full"><div>المكان</div><strong id="venue"></strong><br><span id="address"></span></div>
+</div>
+<div id="countdownBox"></div>
+<a id="mapBtn" class="btn" target="_blank">فتح الموقع</a>
+</section>
+
+<section id="rsvpSection"><h2 id="rsvpHeading">تأكيد الحضور</h2><a id="rsvpBtn" class="btn" target="_blank">تأكيد الحضور عبر واتساب</a></section>
+<section id="gallerySection"><h2 id="galleryHeading">الصور</h2><div id="gallery" class="gallery"></div></section>
+<footer id="footer" style="padding:30px;text-align:center">نتشرف بحضوركم</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const {createClient}=supabase,client=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let d,audio;
+const defaultFonts={page:"Cairo",opening:"Amiri",groom:"Amiri",bride:"Amiri",names:"Amiri",message:"Cairo",headings:"Amiri",date:"Cairo",time:"Cairo",venue:"Cairo",address:"Cairo",countdown:"Cairo",buttons:"Cairo",rsvp:"Cairo",gallery:"Cairo",footer:"Cairo"};
+const defaults={colors:{background:"#ffffff",background2:"#f7f3ee",primary:"#8b6f47",secondary:"#c6a96b",text:"#222222",heading:"#8b6f47",button:"#8b6f47",buttonText:"#ffffff",border:"#c6a96b"},fonts:defaultFonts,background:{type:"color",image:"",overlayOpacity:.2,blur:0},images:{cover:"",logo:"",groom:"",bride:"",gallery:[]},layout:{direction:"rtl",maxWidth:900,borderRadius:20,sectionSpacing:40},effects:{animations:true,animationType:"fade",shadows:true,particles:false},button:{borderRadius:12,showMap:true,showRSVP:true},music:{autoplay:true,loop:true,showControl:true},sections:{hero:true,countdown:true,message:true,location:true,rsvp:true,gallery:true},customCSS:""};
+function deepMerge(base,extra){const out=JSON.parse(JSON.stringify(base));for(const k in extra||{}){if(extra[k]&&typeof extra[k]==="object"&&!Array.isArray(extra[k])&&typeof out[k]==="object"&&!Array.isArray(out[k]))out[k]=deepMerge(out[k],extra[k]);else out[k]=extra[k]}return out}
+function loadFont(name){if(!name)return;const id='gf_'+name.replace(/[^a-z0-9]/gi,'_');if(document.getElementById(id))return;const l=document.createElement('link');l.id=id;l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(name).replace(/%20/g,'+')+':wght@300;400;500;600;700&display=swap';document.head.appendChild(l)}
+function applyFont(el,name){loadFont(name);if(el)el.style.fontFamily='"'+name+'", sans-serif'}
+function applySettings(s){
+ document.documentElement.dir=s.layout.direction||'rtl';
+ const st=document.documentElement.style;
+ st.setProperty('--bg',s.colors.background);st.setProperty('--bg2',s.colors.background2);st.setProperty('--primary',s.colors.primary);st.setProperty('--secondary',s.colors.secondary);st.setProperty('--text',s.colors.text);st.setProperty('--heading',s.colors.heading);st.setProperty('--button',s.colors.button);st.setProperty('--buttonText',s.colors.buttonText);st.setProperty('--border',s.colors.border);st.setProperty('--radius',(s.button.borderRadius||12)+'px');st.setProperty('--maxWidth',(s.layout.maxWidth||900)+'px');st.setProperty('--spacing',(s.layout.sectionSpacing||40)+'px');
+ if(s.background.type==='image'&&s.background.image)document.body.style.backgroundImage='url("'+s.background.image+'")';
+ if(s.images.cover)hero.style.backgroundImage='url("'+s.images.cover+'")';
+ if(s.layout.borderRadius)document.querySelectorAll('.card,.box,.gallery img').forEach(x=>x.style.borderRadius=s.layout.borderRadius+'px');
+ if(s.effects.shadows)document.querySelectorAll('.card,.box').forEach(x=>x.style.boxShadow='0 14px 40px #0002');
+ if(s.effects.animations&&s.effects.animationType!=='none')document.querySelectorAll('section').forEach(x=>x.classList.add(s.effects.animationType));
+ customStyle.textContent=s.customCSS||'';
+ const f=s.fonts||defaultFonts;
+ applyFont(document.body,f.page);
+ applyFont(openingTitle,f.opening);
+ applyFont(groom,f.groom);applyFont(bride,f.bride);applyFont(names,f.names);
+ applyFont(message,f.message);
+ document.querySelectorAll('h2').forEach(x=>applyFont(x,f.headings));
+ applyFont(dateText,f.date);applyFont(dateHero,f.date);
+ applyFont(timeText,f.time);applyFont(venue,f.venue);applyFont(address,f.address);
+ applyFont(countdownBox,f.countdown);
+ document.querySelectorAll('.btn').forEach(x=>applyFont(x,f.buttons));
+ applyFont(rsvpSection,f.rsvp);applyFont(gallerySection,f.gallery);applyFont(footer,f.footer);
+ if(!s.sections.hero)hero.style.display='none';
+ if(!s.sections.message)messageSection.style.display='none';
+ if(!s.sections.location)locationSection.style.display='none';
+ if(!s.sections.rsvp||!s.button.showRSVP)rsvpSection.style.display='none';
+ if(!s.sections.gallery)gallerySection.style.display='none';
+ if(!s.sections.countdown)countdownBox.style.display='none';
+ if(!s.button.showMap)mapBtn.style.display='none';
+ if(!s.music.showControl)musicBtn.style.display='none';
+}
+async function init(){
+ const slug=new URLSearchParams(location.search).get('invite')||'jaafar-wedding';
+ const q=await client.from('invitations').select('*').eq('slug',slug).eq('published',true).single();
+ if(q.error){document.body.innerHTML='<div style="padding:60px;text-align:center">هذه الدعوة غير متاحة أو لم يتم نشرها بعد.</div>';return}
+ d=q.data;const s=deepMerge(defaults,d.settings||{});applySettings(s);
+ groom.textContent=d.groom||'';bride.textContent=d.bride||'';message.textContent=d.message||'';dateText.textContent=d.dateText||'';dateHero.textContent=d.dateText||'';timeText.textContent=d.timeText||'';venue.textContent=d.venue||'';address.textContent=d.address||'';
+ mapBtn.href=d.mapsUrl||'#';rsvpBtn.href='https://wa.me/'+(d.rsvpPhone||'')+'?text='+encodeURIComponent('السلام عليكم، أود تأكيد حضوري لحفل زفاف '+d.groom+' و '+d.bride);
+ gallery.innerHTML=(s.images.gallery||[]).map(u=>'<img src="'+u+'" alt="">').join('');
+ audio=new Audio(d.music||'');audio.loop=!!s.music.loop;audio.volume=Number(d.musicVolume)||.45;
+ musicBtn.onclick=()=>{if(audio.paused){audio.play();musicBtn.textContent='Ⅱ'}else{audio.pause();musicBtn.textContent='♫'}};
+ if(s.music.autoplay&&d.music)audio.play().catch(()=>{});
+ startCountdown();
+}
+function startCountdown(){if(!d.countdown)return;const t=new Date(d.countdown).getTime();setInterval(()=>{let x=Math.max(0,t-Date.now()),dd=Math.floor(x/864e5);x%=864e5;let hh=Math.floor(x/36e5);x%=36e5;let mm=Math.floor(x/6e4);x%=6e4;let ss=Math.floor(x/1e3);countdownBox.textContent=dd+' يوم · '+hh+' ساعة · '+mm+' دقيقة · '+ss+' ثانية'},1000)}
+init();
+</script>
+</body>
+</html>

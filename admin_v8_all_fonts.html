@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>منصة المصمم — الدعوات</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0f0c0a;color:#eee;font-family:Tahoma,Arial,sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1,h2,h3{font-weight:400;color:#e5c789}.muted{opacity:.65;line-height:1.8}.card{background:#1b1612;border:1px solid #5e482f;border-radius:18px;padding:18px;margin:14px 0}
+button{border:1px solid #d5b477;background:#d5b477;color:#24170d;border-radius:24px;padding:11px 18px;cursor:pointer;margin:3px}
+.secondary{background:transparent;color:#e5c789}.danger{background:transparent;color:#efabab;border-color:#824848}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:650px){.grid,.grid2{grid-template-columns:1fr}}
+.item{background:#120f0d;border:1px solid #4d3a28;border-radius:14px;padding:15px}.item h3{margin:0 0 7px;color:#e4c68a;font-weight:400}
+.slug{font-size:12px;opacity:.6;direction:ltr;text-align:right}.badge{display:inline-block;padding:4px 9px;border-radius:15px;font-size:11px}
+.on{background:#173c27;color:#bfe8c8}.off{background:#402323;color:#f0b0b0}
+label{display:block;color:#dfbd7b;margin:10px 0 5px}input,textarea,select{width:100%;padding:11px;border-radius:9px;border:1px solid #5a452e;background:#0c0a08;color:#fff}
+textarea{min-height:90px}#app,#editor{display:none}.status{display:none;padding:10px;border-radius:10px;margin:10px 0}.ok{background:#183b25;color:#bfe8c9}.err{background:#421e1e;color:#ffc3c3}
+.section{border-top:1px solid #4d3a28;margin-top:20px;padding-top:14px}.colorRow{display:grid;grid-template-columns:64px 1fr;gap:8px}.colorRow input[type=color]{height:44px;padding:3px}
+.toggle{display:flex;gap:8px;align-items:center;margin:9px 0}.toggle input{width:auto}.fontPreview{padding:12px;border:1px dashed #66523b;border-radius:10px;margin-top:6px;background:#120f0d}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="login" class="card">
+<h1>دخول المصمم</h1><p class="muted">لوحة خاصة لإدارة جميع دعواتك.</p>
+<label>البريد الإلكتروني</label><input id="email" type="email">
+<label>كلمة المرور</label><input id="password" type="password">
+<button onclick="login()">دخول</button><button class="secondary" onclick="resetPassword()">استعادة كلمة المرور</button>
+<div id="loginStatus" class="status"></div>
+</div>
+
+<div id="app">
+<div class="top"><div><h1>منصة الدعوات</h1><div class="muted">تحكم كامل في النصوص، الخطوط، الألوان، الصور، الأقسام والموسيقى.</div></div>
+<div><button onclick="newInvitation()">+ دعوة جديدة</button><button class="secondary" onclick="logout()">خروج</button></div></div>
+<div id="list" class="grid"></div>
+
+<div id="editor" class="card">
+<h2 id="editorTitle">دعوة جديدة</h2>
+
+<div class="section"><h3>1) البيانات الأساسية</h3>
+<div class="grid2">
+<div><label>معرّف الرابط (Slug)</label><input id="slug"></div>
+<div><label>الحالة</label><select id="published"><option value="true">منشورة</option><option value="false">مسودة</option></select></div>
+<div><label>اسم العريس</label><input id="groom"></div><div><label>اسم العروس</label><input id="bride"></div>
+<div><label>التاريخ</label><input id="dateText"></div><div><label>الوقت</label><input id="timeText"></div>
+<div><label>اسم القاعة</label><input id="venue"></div><div><label>العنوان</label><input id="address"></div>
+<div><label>رابط الخريطة</label><input id="mapsUrl"></div><div><label>العد التنازلي ISO</label><input id="countdown"></div>
+<div><label>واتساب بدون +</label><input id="rsvpPhone"></div><div><label>رابط الموسيقى</label><input id="music"></div>
+<div><label>مستوى الصوت</label><input id="musicVolume" type="number" min="0" max="1" step=".05"></div>
+</div><label>رسالة الدعوة</label><textarea id="message"></textarea></div>
+
+<div class="section"><h3>2) تغيير الخط في جميع أجزاء الدعوة</h3>
+<p class="muted">يمكنك اختيار خط مستقل لكل جزء. القوائم تحتوي 50 خطًا عربيًا و30 خطًا إنجليزيًا.</p>
+<div class="grid2" id="fontControls"></div>
+</div>
+
+<div class="section"><h3>3) الألوان</h3><div class="grid" id="colorControls"></div></div>
+
+<div class="section"><h3>4) الخلفية والصور</h3>
+<div class="grid2">
+<div><label>نوع الخلفية</label><select id="bg_type"><option value="color">لون</option><option value="image">صورة</option></select></div>
+<div><label>رابط صورة الخلفية</label><input id="bg_image"></div>
+<div><label>شفافية الطبقة</label><input id="bg_overlayOpacity" type="number" min="0" max="1" step=".05"></div>
+<div><label>Blur</label><input id="bg_blur" type="number" min="0" max="30"></div>
+<div><label>صورة الغلاف</label><input id="img_cover"></div><div><label>الشعار</label><input id="img_logo"></div>
+<div><label>صورة العريس</label><input id="img_groom"></div><div><label>صورة العروس</label><input id="img_bride"></div>
+</div><label>روابط صور المعرض — رابط في كل سطر</label><textarea id="img_gallery"></textarea></div>
+
+<div class="section"><h3>5) التخطيط والمؤثرات</h3>
+<div class="grid2">
+<div><label>اتجاه الصفحة</label><select id="l_direction"><option value="rtl">RTL</option><option value="ltr">LTR</option></select></div>
+<div><label>أقصى عرض</label><input id="l_maxWidth" type="number"></div>
+<div><label>استدارة الحواف</label><input id="l_borderRadius" type="number"></div>
+<div><label>المسافة بين الأقسام</label><input id="l_sectionSpacing" type="number"></div>
+<div><label>استدارة الأزرار</label><input id="b_borderRadius" type="number"></div>
+<div><label>نوع الحركة</label><select id="e_animationType"><option value="fade">Fade</option><option value="slide">Slide</option><option value="zoom">Zoom</option><option value="none">بدون</option></select></div>
+</div>
+<label class="toggle"><input id="e_animations" type="checkbox"> تشغيل الحركات</label>
+<label class="toggle"><input id="e_shadows" type="checkbox"> إظهار الظلال</label>
+<label class="toggle"><input id="e_particles" type="checkbox"> إظهار المؤثرات الجزيئية</label>
+</div>
+
+<div class="section"><h3>6) إظهار وإخفاء العناصر</h3>
+<label class="toggle"><input id="b_showMap" type="checkbox"> إظهار زر الخريطة</label>
+<label class="toggle"><input id="b_showRSVP" type="checkbox"> إظهار RSVP</label>
+<label class="toggle"><input id="m_autoplay" type="checkbox"> تشغيل الموسيقى تلقائيًا</label>
+<label class="toggle"><input id="m_loop" type="checkbox"> تكرار الموسيقى</label>
+<label class="toggle"><input id="m_showControl" type="checkbox"> إظهار زر التحكم بالموسيقى</label>
+<label class="toggle"><input id="s_hero" type="checkbox"> قسم الافتتاح</label>
+<label class="toggle"><input id="s_countdown" type="checkbox"> العد التنازلي</label>
+<label class="toggle"><input id="s_message" type="checkbox"> الرسالة</label>
+<label class="toggle"><input id="s_location" type="checkbox"> الموقع</label>
+<label class="toggle"><input id="s_rsvp" type="checkbox"> RSVP</label>
+<label class="toggle"><input id="s_gallery" type="checkbox"> معرض الصور</label>
+</div>
+
+<div class="section"><h3>7) تعديل متقدم</h3><label>CSS مخصص</label><textarea id="customCSS"></textarea></div>
+
+<div class="section">
+<button onclick="save()">حفظ</button><button class="secondary" onclick="previewCurrent()">معاينة</button>
+<button class="secondary" onclick="cancelEdit()">إلغاء</button><button class="danger" id="deleteBtn" onclick="removeCurrent()">حذف الدعوة</button>
+<div id="saveStatus" class="status"></div>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const {createClient}=supabase, client=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let currentId=null, editing=false;
+
+const arabicFonts=["Cairo", "Amiri", "Tajawal", "Almarai", "Changa", "El Messiri", "Reem Kufi", "Reem Kufi Fun", "Reem Kufi Ink", "Lateef", "Scheherazade New", "Noto Kufi Arabic", "Noto Naskh Arabic", "Noto Sans Arabic", "Aref Ruqaa", "Aref Ruqaa Ink", "Markazi Text", "Mada", "Harmattan", "Mirza", "Rakkas", "Lemonada", "Baloo Bhaijaan 2", "Katibeh", "Marhey", "Readex Pro", "IBM Plex Sans Arabic", "Noto Nastaliq Urdu", "Gulzar", "Alexandria", "Vazirmatn", "Lalezar", "Kufam", "Jomhuria", "Ruwudu", "Blaka", "Blaka Hollow", "Noto Sans Arabic UI", "Noto Sans Arabic Condensed", "Noto Sans Arabic SemiCondensed", "Noto Kufi Arabic ExtraLight", "Noto Kufi Arabic Medium", "Noto Kufi Arabic SemiBold", "Noto Naskh Arabic Medium", "Noto Naskh Arabic SemiBold", "Noto Naskh Arabic Bold", "Amiri Quran", "Amiri Quran Colored", "Noto Sans Arabic Medium", "Noto Sans Arabic Bold"];
+const englishFonts=["Roboto", "Open Sans", "Lato", "Montserrat", "Poppins", "Inter", "Oswald", "Raleway", "Nunito", "Merriweather", "Playfair Display", "Bebas Neue", "Source Sans 3", "Ubuntu", "Work Sans", "DM Sans", "PT Sans", "Fira Sans", "Josefin Sans", "Libre Baskerville", "Cormorant Garamond", "Manrope", "Quicksand", "Cabin", "Mulish", "Archivo", "Karla", "Heebo", "Barlow", "Space Grotesk"];
+const fontParts={
+  page:"الصفحة كاملة", opening:"عنوان الافتتاح", groom:"اسم العريس", bride:"اسم العروس",
+  names:"منطقة الأسماء", message:"رسالة الدعوة", headings:"العناوين", date:"التاريخ",
+  time:"الوقت", venue:"اسم القاعة", address:"العنوان", countdown:"العد التنازلي",
+  buttons:"الأزرار", rsvp:"قسم تأكيد الحضور", gallery:"معرض الصور", footer:"التذييل"
+};
+
+function fontOptions(selected){
+  const groups=[
+    ['خطوط عربية',arabicFonts],['خطوط إنجليزية',englishFonts]
+  ];
+  return groups.map(([label,arr])=>'<optgroup label="'+label+'">'+arr.map(f=>'<option value="'+f+'" '+(f===selected?'selected':'')+'>'+f+'</option>').join('')+'</optgroup>').join('');
+}
+
+fontControls.innerHTML=Object.entries(fontParts).map(([k,label])=>`
+<div><label>${label}</label>
+<select id="font_${k}" onchange="previewFont('${k}')"></select>
+<div id="prev_${k}" class="fontPreview">معاينة الخط — Wedding 2026</div></div>`).join('');
+
+const colorKeys=["background","background2","primary","secondary","text","heading","button","buttonText","border"];
+const colorLabels={background:"الخلفية",background2:"الخلفية الثانية",primary:"الرئيسي",secondary:"الثانوي",text:"النص",heading:"العناوين",button:"الأزرار",buttonText:"نص الأزرار",border:"الحدود"};
+colorControls.innerHTML=colorKeys.map(k=>`<div><label>${colorLabels[k]}</label><div class="colorRow"><input type="color" id="c_${k}_picker"><input id="c_${k}"></div></div>`).join('');
+
+const fields=["slug","groom","bride","dateText","timeText","venue","address","mapsUrl","countdown","message","music","musicVolume","rsvpPhone","published"];
+
+const defaultSettings={
+ colors:{background:"#ffffff",background2:"#f7f3ee",primary:"#8b6f47",secondary:"#c6a96b",text:"#222222",heading:"#8b6f47",button:"#8b6f47",buttonText:"#ffffff",border:"#c6a96b"},
+ fonts:{page:"Cairo",opening:"Amiri",groom:"Amiri",bride:"Amiri",names:"Amiri",message:"Cairo",headings:"Amiri",date:"Cairo",time:"Cairo",venue:"Cairo",address:"Cairo",countdown:"Cairo",buttons:"Cairo",rsvp:"Cairo",gallery:"Cairo",footer:"Cairo"},
+ background:{type:"color",image:"",overlayOpacity:.20,blur:0},
+ images:{cover:"",logo:"",groom:"",bride:"",gallery:[]},
+ layout:{direction:"rtl",maxWidth:900,borderRadius:20,sectionSpacing:40},
+ effects:{animations:true,animationType:"fade",shadows:true,particles:false},
+ button:{borderRadius:12,showMap:true,showRSVP:true},
+ music:{autoplay:true,loop:true,showControl:true},
+ sections:{hero:true,countdown:true,message:true,location:true,rsvp:true,gallery:true},
+ customCSS:""
+};
+
+const defaults={slug:"new-wedding",groom:"اسم العريس",bride:"اسم العروس",dateText:"الجمعة 00 / 00 / 2026",timeText:"الساعة 8:00 مساءً",venue:"اسم القاعة",address:"العنوان",mapsUrl:"https://maps.google.com/",countdown:"2026-12-31T20:00:00+03:00",message:"بكل حب وسرور نتشرف بحضوركم ومشاركتنا فرحتنا.",music:"",musicVolume:.45,rsvpPhone:"9640000000000",published:true,settings:defaultSettings};
+
+function loadGoogleFont(name){
+ if(!name)return;
+ const id='gf_'+name.replace(/[^a-z0-9]/gi,'_');
+ if(document.getElementById(id))return;
+ const l=document.createElement('link');l.id=id;l.rel='stylesheet';
+ l.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(name).replace(/%20/g,'+')+':wght@300;400;500;600;700&display=swap';
+ document.head.appendChild(l);
+}
+
+function previewFont(k){
+ const v=document.getElementById('font_'+k).value;
+ loadGoogleFont(v);
+ document.getElementById('prev_'+k).style.fontFamily='"'+v+'", sans-serif';
+}
+
+function deepMerge(base,extra){const out=JSON.parse(JSON.stringify(base));for(const k in extra||{}){if(extra[k]&&typeof extra[k]==='object'&&!Array.isArray(extra[k])&&typeof out[k]==='object'&&!Array.isArray(out[k]))out[k]=deepMerge(out[k],extra[k]);else out[k]=extra[k]}return out}
+function status(el,text,ok=false){el.textContent=text;el.className="status "+(ok?"ok":"err");el.style.display="block"}
+async function login(){let q=await client.auth.signInWithPassword({email:email.value,password:password.value});if(q.error)return status(loginStatus,q.error.message);boot()}
+async function resetPassword(){let q=await client.auth.resetPasswordForEmail(email.value,{redirectTo:location.origin+"/admin.html"});if(q.error)return status(loginStatus,q.error.message);status(loginStatus,"تم إرسال رابط الاستعادة.",true)}
+async function boot(){let q=await client.auth.getUser();if(!q.data.user)return;login.style.display="none";app.style.display="block";setupColors();loadList()}
+function setupColors(){colorKeys.forEach(k=>{const t=document.getElementById("c_"+k),p=document.getElementById("c_"+k+"_picker");p.oninput=()=>t.value=p.value;t.oninput=()=>{if(/^#[0-9A-Fa-f]{6}$/.test(t.value))p.value=t.value}})}
+async function loadList(){let q=await client.from("invitations").select("id,slug,groom,bride,dateText,venue,published,updated_at").order("updated_at",{ascending:false});if(q.error)return alert(q.error.message);list.innerHTML=q.data.map(x=>`<div class="item"><h3>${esc(x.groom)} & ${esc(x.bride)}</h3><div>${esc(x.dateText)}<br>${esc(x.venue)}</div><p class="slug">/${esc(x.slug)}</p><span class="badge ${x.published?'on':'off'}">${x.published?'منشورة':'مسودة'}</span><div style="margin-top:12px"><button onclick="editInvitation('${x.id}')">تعديل</button><button class="secondary" onclick="preview('${encodeURIComponent(x.slug)}')">معاينة</button></div></div>`).join("")||'<p class="muted">لا توجد دعوات بعد.</p>'}
+async function editInvitation(id){let q=await client.from("invitations").select("*").eq("id",id).single();if(q.error)return alert(q.error.message);currentId=id;editing=true;editor.style.display="block";editorTitle.textContent="تعديل الدعوة";deleteBtn.style.display="inline-block";fill(q.data);scrollTo({top:document.body.scrollHeight,behavior:"smooth"})}
+function newInvitation(){currentId=null;editing=false;editor.style.display="block";editorTitle.textContent="إنشاء دعوة جديدة";deleteBtn.style.display="none";fill(defaults);scrollTo({top:document.body.scrollHeight,behavior:"smooth"})}
+function fill(x){
+ fields.forEach(k=>{let e=document.getElementById(k);if(e)e.value=x[k]??""});
+ const s=deepMerge(defaultSettings,x.settings||{});
+ colorKeys.forEach(k=>{document.getElementById("c_"+k).value=s.colors[k];document.getElementById("c_"+k+"_picker").value=s.colors[k]});
+ Object.keys(fontParts).forEach(k=>{const sel=document.getElementById('font_'+k);sel.innerHTML=fontOptions(s.fonts[k]||'Cairo');sel.value=s.fonts[k]||'Cairo';previewFont(k)});
+ bg_type.value=s.background.type;bg_image.value=s.background.image;bg_overlayOpacity.value=s.background.overlayOpacity;bg_blur.value=s.background.blur;
+ img_cover.value=s.images.cover;img_logo.value=s.images.logo;img_groom.value=s.images.groom;img_bride.value=s.images.bride;img_gallery.value=(s.images.gallery||[]).join("\n");
+ l_direction.value=s.layout.direction;l_maxWidth.value=s.layout.maxWidth;l_borderRadius.value=s.layout.borderRadius;l_sectionSpacing.value=s.layout.sectionSpacing;
+ e_animations.checked=!!s.effects.animations;e_animationType.value=s.effects.animationType;e_shadows.checked=!!s.effects.shadows;e_particles.checked=!!s.effects.particles;
+ b_borderRadius.value=s.button.borderRadius;b_showMap.checked=!!s.button.showMap;b_showRSVP.checked=!!s.button.showRSVP;
+ m_autoplay.checked=!!s.music.autoplay;m_loop.checked=!!s.music.loop;m_showControl.checked=!!s.music.showControl;
+ s_hero.checked=!!s.sections.hero;s_countdown.checked=!!s.sections.countdown;s_message.checked=!!s.sections.message;s_location.checked=!!s.sections.location;s_rsvp.checked=!!s.sections.rsvp;s_gallery.checked=!!s.sections.gallery;
+ customCSS.value=s.customCSS||"";
+}
+function collectSettings(){return {
+ colors:Object.fromEntries(colorKeys.map(k=>[k,document.getElementById("c_"+k).value])),
+ fonts:Object.fromEntries(Object.keys(fontParts).map(k=>[k,document.getElementById("font_"+k).value])),
+ background:{type:bg_type.value,image:bg_image.value,overlayOpacity:Number(bg_overlayOpacity.value)||0,blur:Number(bg_blur.value)||0},
+ images:{cover:img_cover.value,logo:img_logo.value,groom:img_groom.value,bride:img_bride.value,gallery:img_gallery.value.split("\n").map(x=>x.trim()).filter(Boolean)},
+ layout:{direction:l_direction.value,maxWidth:Number(l_maxWidth.value)||900,borderRadius:Number(l_borderRadius.value)||20,sectionSpacing:Number(l_sectionSpacing.value)||40},
+ effects:{animations:e_animations.checked,animationType:e_animationType.value,shadows:e_shadows.checked,particles:e_particles.checked},
+ button:{borderRadius:Number(b_borderRadius.value)||12,showMap:b_showMap.checked,showRSVP:b_showRSVP.checked},
+ music:{autoplay:m_autoplay.checked,loop:m_loop.checked,showControl:m_showControl.checked},
+ sections:{hero:s_hero.checked,countdown:s_countdown.checked,message:s_message.checked,location:s_location.checked,rsvp:s_rsvp.checked,gallery:s_gallery.checked},
+ customCSS:customCSS.value
+}}
+function collect(){let x={};fields.forEach(k=>x[k]=document.getElementById(k).value);x.musicVolume=Number(x.musicVolume)||.45;x.published=x.published==="true";x.settings=collectSettings();return x}
+async function save(){let x=collect();if(!/^[a-z0-9-]+$/.test(x.slug))return status(saveStatus,"الـ slug يجب أن يحتوي أحرف إنجليزية صغيرة وأرقام وشرطة فقط.");let q=editing?await client.from("invitations").update(x).eq("id",currentId):await client.from("invitations").insert(x);if(q.error)return status(saveStatus,q.error.message);status(saveStatus,"تم الحفظ بنجاح.",true);editor.style.display="none";loadList()}
+async function removeCurrent(){if(!currentId||!confirm("حذف الدعوة نهائياً؟"))return;let q=await client.from("invitations").delete().eq("id",currentId);if(q.error)return alert(q.error.message);editor.style.display="none";loadList()}
+function cancelEdit(){editor.style.display="none"}
+function preview(slug){let base=PUBLIC_BASE_URL||location.href.replace(/admin\.html.*$/,"");window.open(base+"index.html?invite="+slug,"_blank")}
+function previewCurrent(){preview(encodeURIComponent(document.getElementById("slug").value.trim()))}
+async function logout(){await client.auth.signOut();location.reload()}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+boot();
+</script>
+</body>
+</html>
