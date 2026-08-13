@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>منصة المصمم — الدعوات</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0f0c0a;color:#eee;font-family:Tahoma,Arial,sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1,h2{font-weight:400;color:#e5c789}.muted{opacity:.65;line-height:1.8}.card{background:#1b1612;border:1px solid #5e482f;border-radius:18px;padding:18px;margin:14px 0}
+button{border:1px solid #d5b477;background:#d5b477;color:#24170d;border-radius:24px;padding:11px 18px;cursor:pointer}
+.secondary{background:transparent;color:#e5c789}.danger{background:transparent;color:#efabab;border-color:#824848}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}
+.item{background:#120f0d;border:1px solid #4d3a28;border-radius:14px;padding:15px}.item h3{margin:0 0 7px;color:#e4c68a;font-weight:400}.slug{font-size:12px;opacity:.6;direction:ltr;text-align:right}
+.badge{display:inline-block;padding:4px 9px;border-radius:15px;font-size:11px}.on{background:#173c27;color:#bfe8c8}.off{background:#402323;color:#f0b0b0}
+label{display:block;color:#dfbd7b;margin:10px 0 5px}input,textarea{width:100%;padding:11px;border-radius:9px;border:1px solid #5a452e;background:#0c0a08;color:#fff}
+textarea{min-height:80px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:650px){.formgrid{grid-template-columns:1fr}}
+#app,#editor{display:none}.status{display:none;padding:10px;border-radius:10px;margin:10px 0}.ok{background:#183b25;color:#bfe8c9}.err{background:#421e1e;color:#ffc3c3}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="login" class="card">
+<h1>دخول المصمم</h1>
+<p class="muted">لوحة خاصة لإدارة جميع دعواتك.</p>
+<label>البريد الإلكتروني</label><input id="email" type="email">
+<label>كلمة المرور</label><input id="password" type="password">
+<button onclick="login()">دخول</button>
+<button class="secondary" onclick="resetPassword()">استعادة كلمة المرور</button>
+<div id="loginStatus" class="status"></div>
+</div>
+
+<div id="app">
+<div class="top">
+<div><h1>منصة الدعوات</h1><div class="muted">أنشئ دعوة لكل عميل، ولكل دعوة رابط مستقل.</div></div>
+<div><button onclick="newInvitation()">+ دعوة جديدة</button><button class="secondary" onclick="logout()">خروج</button></div>
+</div>
+<div id="list" class="grid"></div>
+<div id="editor" class="card">
+<h2 id="editorTitle">دعوة جديدة</h2>
+<div class="formgrid">
+<div><label>معرّف الرابط (Slug)</label><input id="slug" placeholder="jaafar-wedding"></div>
+<div><label>الحالة</label><select id="published" style="width:100%;padding:11px;background:#0c0a08;color:white;border:1px solid #5a452e;border-radius:9px"><option value="true">منشورة</option><option value="false">مسودة</option></select></div>
+<div><label>اسم العريس</label><input id="groom"></div>
+<div><label>اسم العروس</label><input id="bride"></div>
+<div><label>التاريخ</label><input id="dateText"></div>
+<div><label>الوقت</label><input id="timeText"></div>
+<div><label>اسم القاعة</label><input id="venue"></div>
+<div><label>العنوان</label><input id="address"></div>
+<div><label>رابط الخريطة</label><input id="mapsUrl"></div>
+<div><label>العد التنازلي ISO</label><input id="countdown"></div>
+<div><label>واتساب بدون +</label><input id="rsvpPhone"></div>
+<div><label>الموسيقى URL</label><input id="music"></div>
+<div><label>مستوى الصوت</label><input id="musicVolume" type="number" min="0" max="1" step=".05"></div>
+</div>
+<label>رسالة الدعوة</label><textarea id="message"></textarea>
+<div>
+<button onclick="save()">حفظ</button><button class="secondary" onclick="cancelEdit()">إلغاء</button>
+<button class="danger" id="deleteBtn" onclick="removeCurrent()">حذف الدعوة</button>
+</div>
+<div id="saveStatus" class="status"></div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const {createClient}=supabase, client=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let currentId=null, editing=false;
+const fields=["slug","groom","bride","dateText","timeText","venue","address","mapsUrl","countdown","message","music","musicVolume","rsvpPhone","published"];
+const defaults={slug:"new-wedding",groom:"اسم العريس",bride:"اسم العروس",dateText:"الجمعة 00 / 00 / 2026",timeText:"الساعة 8:00 مساءً",venue:"اسم القاعة",address:"العنوان",mapsUrl:"https://maps.google.com/",countdown:"2026-12-31T20:00:00+03:00",message:"بكل حب وسرور نتشرف بحضوركم ومشاركتنا فرحتنا.",music:"",musicVolume:.45,rsvpPhone:"9640000000000",published:true};
+function status(el,text,ok=false){el.textContent=text;el.className="status "+(ok?"ok":"err");el.style.display="block"}
+async function login(){let q=await client.auth.signInWithPassword({email:email.value,password:password.value});if(q.error)return status(loginStatus,q.error.message);boot()}
+async function resetPassword(){let q=await client.auth.resetPasswordForEmail(email.value,{redirectTo:location.origin+"/admin.html"});if(q.error)return status(loginStatus,q.error.message);status(loginStatus,"تم إرسال رابط الاستعادة.",true)}
+async function boot(){let q=await client.auth.getUser();if(!q.data.user)return;login.style.display="none";app.style.display="block";loadList()}
+async function loadList(){
+ let q=await client.from("invitations").select("id,slug,groom,bride,dateText,venue,published,updated_at").order("updated_at",{ascending:false});
+ if(q.error)return status(saveStatus,q.error.message);
+ list.innerHTML=q.data.map(x=>`<div class="item"><h3>${esc(x.groom)} & ${esc(x.bride)}</h3><div>${esc(x.dateText)}<br>${esc(x.venue)}</div><p class="slug">/${esc(x.slug)}</p><span class="badge ${x.published?'on':'off'}">${x.published?'منشورة':'مسودة'}</span><div style="margin-top:12px"><button onclick="editInvitation('${x.id}')">تعديل</button><button class="secondary" onclick="preview('${encodeURIComponent(x.slug)}')">معاينة</button></div></div>`).join("")||'<p class="muted">لا توجد دعوات بعد.</p>';
+}
+async function editInvitation(id){let q=await client.from("invitations").select("*").eq("id",id).single();if(q.error)return alert(q.error.message);currentId=id;editing=true;editor.style.display="block";editorTitle.textContent="تعديل الدعوة";deleteBtn.style.display="inline-block";fill(q.data);scrollTo({top:document.body.scrollHeight,behavior:"smooth"})}
+function newInvitation(){currentId=null;editing=false;editor.style.display="block";editorTitle.textContent="إنشاء دعوة جديدة";deleteBtn.style.display="none";fill(defaults);scrollTo({top:document.body.scrollHeight,behavior:"smooth"})}
+function fill(x){fields.forEach(k=>{let e=document.getElementById(k);if(e)e.value=x[k]??""})}
+function collect(){let x={};fields.forEach(k=>{x[k]=document.getElementById(k).value});x.musicVolume=Number(x.musicVolume)||.45;x.published=x.published==="true";return x}
+async function save(){
+ let x=collect();if(!/^[a-z0-9-]+$/.test(x.slug))return status(saveStatus,"الـ slug يجب أن يحتوي أحرف إنجليزية صغيرة وأرقام وشرطة فقط.");
+ let q=editing?await client.from("invitations").update(x).eq("id",currentId):await client.from("invitations").insert(x);
+ if(q.error)return status(saveStatus,q.error.message);
+ status(saveStatus,"تم الحفظ بنجاح.",true);editor.style.display="none";loadList()
+}
+async function removeCurrent(){if(!currentId||!confirm("حذف الدعوة نهائياً؟"))return;let q=await client.from("invitations").delete().eq("id",currentId);if(q.error)return alert(q.error.message);editor.style.display="none";loadList()}
+function cancelEdit(){editor.style.display="none"}
+function preview(slug){let base=PUBLIC_BASE_URL||location.href.replace(/admin\.html.*$/,"");window.open(base+"index.html?invite="+slug,"_blank")}
+async function logout(){await client.auth.signOut();location.reload()}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+boot()
+</script>
+</body>
+</html>
