@@ -1,219 +1,4334 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
 <title>منصة المصمم — الدعوات</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0f0c0a;color:#eee;font-family:Tahoma,Arial,sans-serif}
-.wrap{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-h1,h2,h3{font-weight:400;color:#e5c789}.muted{opacity:.65;line-height:1.8}.card{background:#1b1612;border:1px solid #5e482f;border-radius:18px;padding:18px;margin:14px 0}
-button{border:1px solid #d5b477;background:#d5b477;color:#24170d;border-radius:24px;padding:11px 18px;cursor:pointer;margin:3px}
-.secondary{background:transparent;color:#e5c789}.danger{background:transparent;color:#efabab;border-color:#824848}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:650px){.grid,.grid2{grid-template-columns:1fr}}
-.item{background:#120f0d;border:1px solid #4d3a28;border-radius:14px;padding:15px}.item h3{margin:0 0 7px;color:#e4c68a;font-weight:400}
-.slug{font-size:12px;opacity:.6;direction:ltr;text-align:right}.badge{display:inline-block;padding:4px 9px;border-radius:15px;font-size:11px}
-.on{background:#173c27;color:#bfe8c8}.off{background:#402323;color:#f0b0b0}
-label{display:block;color:#dfbd7b;margin:10px 0 5px}input,textarea,select{width:100%;padding:11px;border-radius:9px;border:1px solid #5a452e;background:#0c0a08;color:#fff}
-textarea{min-height:90px}#app,#editor{display:none}.status{display:none;padding:10px;border-radius:10px;margin:10px 0}.ok{background:#183b25;color:#bfe8c9}.err{background:#421e1e;color:#ffc3c3}
-.section{border-top:1px solid #4d3a28;margin-top:20px;padding-top:14px}.colorRow{display:grid;grid-template-columns:64px 1fr;gap:8px}.colorRow input[type=color]{height:44px;padding:3px}
-.toggle{display:flex;gap:8px;align-items:center;margin:9px 0}.toggle input{width:auto}.fontPreview{padding:12px;border:1px dashed #66523b;border-radius:10px;margin-top:6px;background:#120f0d}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#0f0c0a;
+  color:#eee;
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:auto;
+  padding:18px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+h1,
+h2,
+h3{
+  font-weight:400;
+  color:#e5c789;
+}
+
+.muted{
+  opacity:.65;
+  line-height:1.8;
+}
+
+.card{
+  background:#1b1612;
+  border:1px solid #5e482f;
+  border-radius:18px;
+  padding:18px;
+  margin:14px 0;
+}
+
+button{
+  border:1px solid #d5b477;
+  background:#d5b477;
+  color:#24170d;
+  border-radius:24px;
+  padding:11px 18px;
+  cursor:pointer;
+  margin:3px;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.secondary{
+  background:transparent;
+  color:#e5c789;
+}
+
+.danger{
+  background:transparent;
+  color:#efabab;
+  border-color:#824848;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+@media(max-width:900px){
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .grid,
+  .grid2{
+    grid-template-columns:1fr;
+  }
+
+}
+
+.item{
+  background:#120f0d;
+  border:1px solid #4d3a28;
+  border-radius:14px;
+  padding:15px;
+}
+
+.item h3{
+  margin:0 0 7px;
+  color:#e4c68a;
+  font-weight:400;
+}
+
+.slug{
+  font-size:12px;
+  opacity:.6;
+  direction:ltr;
+  text-align:right;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 9px;
+  border-radius:15px;
+  font-size:11px;
+}
+
+.on{
+  background:#173c27;
+  color:#bfe8c8;
+}
+
+.off{
+  background:#402323;
+  color:#f0b0b0;
+}
+
+label{
+  display:block;
+  color:#dfbd7b;
+  margin:10px 0 5px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:11px;
+  border-radius:9px;
+  border:1px solid #5a452e;
+  background:#0c0a08;
+  color:#fff;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+#app,
+#editor,
+#recoveryBox{
+  display:none;
+}
+
+.status{
+  display:none;
+  padding:10px;
+  border-radius:10px;
+  margin:10px 0;
+  line-height:1.7;
+}
+
+.ok{
+  background:#183b25;
+  color:#bfe8c9;
+}
+
+.err{
+  background:#421e1e;
+  color:#ffc3c3;
+}
+
+.section{
+  border-top:1px solid #4d3a28;
+  margin-top:20px;
+  padding-top:14px;
+}
+
+.colorRow{
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:8px;
+}
+
+.colorRow input[type="color"]{
+  height:44px;
+  padding:3px;
+}
+
+.toggle{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin:9px 0;
+}
+
+.toggle input{
+  width:auto;
+}
+
+.fontPreview{
+  padding:12px;
+  border:1px dashed #66523b;
+  border-radius:10px;
+  margin-top:6px;
+  background:#120f0d;
+  min-height:48px;
+}
+
 </style>
+
 </head>
+
 <body>
+
 <div class="wrap">
-<div id="login" class="card">
-<h1>دخول المصمم</h1><p class="muted">لوحة خاصة لإدارة جميع دعواتك.</p>
-<label>البريد الإلكتروني</label><input id="email" type="email">
-<label>كلمة المرور</label><input id="password" type="password">
-<button onclick="login()">دخول</button><button class="secondary" onclick="resetPassword()">استعادة كلمة المرور</button>
-<div id="loginStatus" class="status"></div>
+
+
+<!-- تسجيل الدخول -->
+
+<div
+  id="loginBox"
+  class="card"
+>
+
+  <h1>
+    دخول المصمم
+  </h1>
+
+  <p class="muted">
+    لوحة خاصة لإدارة جميع دعواتك.
+  </p>
+
+  <label>
+    البريد الإلكتروني
+  </label>
+
+  <input
+    id="email"
+    type="email"
+    autocomplete="email"
+  >
+
+  <label>
+    كلمة المرور
+  </label>
+
+  <input
+    id="password"
+    type="password"
+    autocomplete="current-password"
+  >
+
+  <button
+    id="loginBtn"
+    type="button"
+    onclick="loginDesigner()"
+  >
+    دخول
+  </button>
+
+  <button
+    type="button"
+    class="secondary"
+    onclick="resetPassword()"
+  >
+    استعادة كلمة المرور
+  </button>
+
+  <div
+    id="loginStatus"
+    class="status"
+  ></div>
+
 </div>
+
+
+
+<!-- استعادة كلمة المرور -->
+
+<div
+  id="recoveryBox"
+  class="card"
+>
+
+  <h1>
+    تعيين كلمة مرور جديدة
+  </h1>
+
+  <p class="muted">
+    أدخل كلمة المرور الجديدة ثم أكدها.
+  </p>
+
+  <label>
+    كلمة المرور الجديدة
+  </label>
+
+  <input
+    id="newPassword"
+    type="password"
+    autocomplete="new-password"
+  >
+
+  <label>
+    تأكيد كلمة المرور الجديدة
+  </label>
+
+  <input
+    id="confirmNewPassword"
+    type="password"
+    autocomplete="new-password"
+  >
+
+  <button
+    id="updatePasswordBtn"
+    type="button"
+    onclick="updatePassword()"
+  >
+    حفظ كلمة المرور الجديدة
+  </button>
+
+  <div
+    id="recoveryStatus"
+    class="status"
+  ></div>
+
+</div>
+
+
+
+<!-- لوحة الإدارة -->
 
 <div id="app">
-<div class="top"><div><h1>منصة الدعوات</h1><div class="muted">تحكم كامل في النصوص، الخطوط، الألوان، الصور، الأقسام والموسيقى.</div></div>
-<div><button onclick="newInvitation()">+ دعوة جديدة</button><button class="secondary" onclick="logout()">خروج</button></div></div>
-<div id="list" class="grid"></div>
 
-<div id="editor" class="card">
-<h2 id="editorTitle">دعوة جديدة</h2>
 
-<div class="section"><h3>1) البيانات الأساسية</h3>
-<div class="grid2">
-<div><label>معرّف الرابط (Slug)</label><input id="slug"></div>
-<div><label>الحالة</label><select id="published"><option value="true">منشورة</option><option value="false">مسودة</option></select></div>
-<div><label>اسم العريس</label><input id="groom"></div><div><label>اسم العروس</label><input id="bride"></div>
-<div><label>التاريخ</label><input id="dateText"></div><div><label>الوقت</label><input id="timeText"></div>
-<div><label>اسم القاعة</label><input id="venue"></div><div><label>العنوان</label><input id="address"></div>
-<div><label>رابط الخريطة</label><input id="mapsUrl"></div><div><label>العد التنازلي ISO</label><input id="countdown"></div>
-<div><label>واتساب بدون +</label><input id="rsvpPhone"></div><div><label>رابط الموسيقى</label><input id="music"></div>
-<div><label>مستوى الصوت</label><input id="musicVolume" type="number" min="0" max="1" step=".05"></div>
-</div><label>رسالة الدعوة</label><textarea id="message"></textarea></div>
+  <div class="top">
 
-<div class="section"><h3>2) تغيير الخط في جميع أجزاء الدعوة</h3>
-<p class="muted">يمكنك اختيار خط مستقل لكل جزء. القوائم تحتوي 50 خطًا عربيًا و30 خطًا إنجليزيًا.</p>
-<div class="grid2" id="fontControls"></div>
+    <div>
+
+      <h1>
+        منصة الدعوات
+      </h1>
+
+      <div class="muted">
+        تحكم كامل في النصوص، الخطوط، الألوان، الصور، الأقسام والموسيقى.
+      </div>
+
+    </div>
+
+
+    <div>
+
+      <button
+        type="button"
+        onclick="newInvitation()"
+      >
+        + دعوة جديدة
+      </button>
+
+      <button
+        type="button"
+        class="secondary"
+        onclick="logout()"
+      >
+        خروج
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="list"
+    class="grid"
+  ></div>
+
+
+
+  <!-- محرر الدعوة -->
+
+  <div
+    id="editor"
+    class="card"
+  >
+
+    <h2 id="editorTitle">
+      دعوة جديدة
+    </h2>
+
+
+
+    <!-- البيانات الأساسية -->
+
+    <div class="section">
+
+      <h3>
+        1) البيانات الأساسية
+      </h3>
+
+
+      <div class="grid2">
+
+
+        <div>
+
+          <label>
+            معرّف الرابط (Slug)
+          </label>
+
+          <input
+            id="slug"
+            autocomplete="off"
+            placeholder="jaafar-wedding"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            الحالة
+          </label>
+
+          <select id="published">
+
+            <option value="true">
+              منشورة
+            </option>
+
+            <option value="false">
+              مسودة
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            اسم العريس
+          </label>
+
+          <input id="groom">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            اسم العروس
+          </label>
+
+          <input id="bride">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            التاريخ
+          </label>
+
+          <input id="dateText">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            الوقت
+          </label>
+
+          <input id="timeText">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            اسم القاعة
+          </label>
+
+          <input id="venue">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            العنوان
+          </label>
+
+          <input id="address">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            رابط الخريطة
+          </label>
+
+          <input
+            id="mapsUrl"
+            type="url"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            العد التنازلي ISO
+          </label>
+
+          <input
+            id="countdown"
+            placeholder="2026-12-31T20:00:00+03:00"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            واتساب بدون +
+          </label>
+
+          <input
+            id="rsvpPhone"
+            inputmode="numeric"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            رابط الموسيقى
+          </label>
+
+          <input
+            id="music"
+            type="url"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            مستوى الصوت
+          </label>
+
+          <input
+            id="musicVolume"
+            type="number"
+            min="0"
+            max="1"
+            step=".05"
+          >
+
+        </div>
+
+      </div>
+
+
+      <label>
+        رسالة الدعوة
+      </label>
+
+      <textarea id="message"></textarea>
+
+    </div>
+
+
+
+    <!-- الخطوط -->
+
+    <div class="section">
+
+      <h3>
+        2) تغيير الخط في جميع أجزاء الدعوة
+      </h3>
+
+      <p class="muted">
+        يمكنك اختيار خط مستقل لكل جزء. تحتوي القائمة على 50 خطًا عربيًا و30 خطًا إنجليزيًا.
+      </p>
+
+      <div
+        class="grid2"
+        id="fontControls"
+      ></div>
+
+    </div>
+
+
+
+    <!-- الألوان -->
+
+    <div class="section">
+
+      <h3>
+        3) الألوان
+      </h3>
+
+      <div
+        class="grid"
+        id="colorControls"
+      ></div>
+
+    </div>
+
+
+
+    <!-- الخلفية والصور -->
+
+    <div class="section">
+
+      <h3>
+        4) الخلفية والصور
+      </h3>
+
+
+      <div class="grid2">
+
+
+        <div>
+
+          <label>
+            نوع الخلفية
+          </label>
+
+          <select id="bg_type">
+
+            <option value="color">
+              لون
+            </option>
+
+            <option value="image">
+              صورة
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            رابط صورة الخلفية
+          </label>
+
+          <input
+            id="bg_image"
+            type="url"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            شفافية الطبقة
+          </label>
+
+          <input
+            id="bg_overlayOpacity"
+            type="number"
+            min="0"
+            max="1"
+            step=".05"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Blur
+          </label>
+
+          <input
+            id="bg_blur"
+            type="number"
+            min="0"
+            max="30"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            صورة الغلاف
+          </label>
+
+          <input
+            id="img_cover"
+            type="url"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            الشعار
+          </label>
+
+          <input
+            id="img_logo"
+            type="url"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            صورة العريس
+          </label>
+
+          <input
+            id="img_groom"
+            type="url"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            صورة العروس
+          </label>
+
+          <input
+            id="img_bride"
+            type="url"
+          >
+
+        </div>
+
+      </div>
+
+
+      <label>
+        روابط صور المعرض — رابط في كل سطر
+      </label>
+
+      <textarea id="img_gallery"></textarea>
+
+    </div>
+
+
+
+    <!-- التخطيط والمؤثرات -->
+
+    <div class="section">
+
+      <h3>
+        5) التخطيط والمؤثرات
+      </h3>
+
+
+      <div class="grid2">
+
+
+        <div>
+
+          <label>
+            اتجاه الصفحة
+          </label>
+
+          <select id="l_direction">
+
+            <option value="rtl">
+              RTL
+            </option>
+
+            <option value="ltr">
+              LTR
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            أقصى عرض
+          </label>
+
+          <input
+            id="l_maxWidth"
+            type="number"
+            min="320"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            استدارة الحواف
+          </label>
+
+          <input
+            id="l_borderRadius"
+            type="number"
+            min="0"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            المسافة بين الأقسام
+          </label>
+
+          <input
+            id="l_sectionSpacing"
+            type="number"
+            min="0"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            استدارة الأزرار
+          </label>
+
+          <input
+            id="b_borderRadius"
+            type="number"
+            min="0"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            نوع الحركة
+          </label>
+
+          <select id="e_animationType">
+
+            <option value="fade">
+              Fade
+            </option>
+
+            <option value="slide">
+              Slide
+            </option>
+
+            <option value="zoom">
+              Zoom
+            </option>
+
+            <option value="none">
+              بدون
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <label class="toggle">
+
+        <input
+          id="e_animations"
+          type="checkbox"
+        >
+
+        تشغيل الحركات
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="e_shadows"
+          type="checkbox"
+        >
+
+        إظهار الظلال
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="e_particles"
+          type="checkbox"
+        >
+
+        إظهار المؤثرات الجزيئية
+
+      </label>
+
+    </div>
+
+
+
+    <!-- إظهار وإخفاء العناصر -->
+
+    <div class="section">
+
+      <h3>
+        6) إظهار وإخفاء العناصر
+      </h3>
+
+
+      <label class="toggle">
+
+        <input
+          id="b_showMap"
+          type="checkbox"
+        >
+
+        إظهار زر الخريطة
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="b_showRSVP"
+          type="checkbox"
+        >
+
+        إظهار RSVP
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="m_autoplay"
+          type="checkbox"
+        >
+
+        تشغيل الموسيقى تلقائيًا
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="m_loop"
+          type="checkbox"
+        >
+
+        تكرار الموسيقى
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="m_showControl"
+          type="checkbox"
+        >
+
+        إظهار زر التحكم بالموسيقى
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="s_hero"
+          type="checkbox"
+        >
+
+        قسم الافتتاح
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="s_countdown"
+          type="checkbox"
+        >
+
+        العد التنازلي
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="s_message"
+          type="checkbox"
+        >
+
+        الرسالة
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="s_location"
+          type="checkbox"
+        >
+
+        الموقع
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="s_rsvp"
+          type="checkbox"
+        >
+
+        RSVP
+
+      </label>
+
+
+      <label class="toggle">
+
+        <input
+          id="s_gallery"
+          type="checkbox"
+        >
+
+        معرض الصور
+
+      </label>
+
+    </div>
+
+
+
+    <!-- CSS مخصص -->
+
+    <div class="section">
+
+      <h3>
+        7) تعديل متقدم
+      </h3>
+
+      <label>
+        CSS مخصص
+      </label>
+
+      <textarea id="customCSS"></textarea>
+
+    </div>
+
+
+
+    <!-- أزرار الحفظ -->
+
+    <div class="section">
+
+
+      <button
+        id="saveBtn"
+        type="button"
+        onclick="saveInvitation()"
+      >
+        حفظ
+      </button>
+
+
+      <button
+        type="button"
+        class="secondary"
+        onclick="previewCurrent()"
+      >
+        معاينة
+      </button>
+
+
+      <button
+        type="button"
+        class="secondary"
+        onclick="cancelEdit()"
+      >
+        إلغاء
+      </button>
+
+
+      <button
+        type="button"
+        class="danger"
+        id="deleteBtn"
+        onclick="removeCurrent()"
+      >
+        حذف الدعوة
+      </button>
+
+
+      <div
+        id="saveStatus"
+        class="status"
+      ></div>
+
+    </div>
+
+
+  </div>
+
 </div>
 
-<div class="section"><h3>3) الألوان</h3><div class="grid" id="colorControls"></div></div>
-
-<div class="section"><h3>4) الخلفية والصور</h3>
-<div class="grid2">
-<div><label>نوع الخلفية</label><select id="bg_type"><option value="color">لون</option><option value="image">صورة</option></select></div>
-<div><label>رابط صورة الخلفية</label><input id="bg_image"></div>
-<div><label>شفافية الطبقة</label><input id="bg_overlayOpacity" type="number" min="0" max="1" step=".05"></div>
-<div><label>Blur</label><input id="bg_blur" type="number" min="0" max="30"></div>
-<div><label>صورة الغلاف</label><input id="img_cover"></div><div><label>الشعار</label><input id="img_logo"></div>
-<div><label>صورة العريس</label><input id="img_groom"></div><div><label>صورة العروس</label><input id="img_bride"></div>
-</div><label>روابط صور المعرض — رابط في كل سطر</label><textarea id="img_gallery"></textarea></div>
-
-<div class="section"><h3>5) التخطيط والمؤثرات</h3>
-<div class="grid2">
-<div><label>اتجاه الصفحة</label><select id="l_direction"><option value="rtl">RTL</option><option value="ltr">LTR</option></select></div>
-<div><label>أقصى عرض</label><input id="l_maxWidth" type="number"></div>
-<div><label>استدارة الحواف</label><input id="l_borderRadius" type="number"></div>
-<div><label>المسافة بين الأقسام</label><input id="l_sectionSpacing" type="number"></div>
-<div><label>استدارة الأزرار</label><input id="b_borderRadius" type="number"></div>
-<div><label>نوع الحركة</label><select id="e_animationType"><option value="fade">Fade</option><option value="slide">Slide</option><option value="zoom">Zoom</option><option value="none">بدون</option></select></div>
-</div>
-<label class="toggle"><input id="e_animations" type="checkbox"> تشغيل الحركات</label>
-<label class="toggle"><input id="e_shadows" type="checkbox"> إظهار الظلال</label>
-<label class="toggle"><input id="e_particles" type="checkbox"> إظهار المؤثرات الجزيئية</label>
 </div>
 
-<div class="section"><h3>6) إظهار وإخفاء العناصر</h3>
-<label class="toggle"><input id="b_showMap" type="checkbox"> إظهار زر الخريطة</label>
-<label class="toggle"><input id="b_showRSVP" type="checkbox"> إظهار RSVP</label>
-<label class="toggle"><input id="m_autoplay" type="checkbox"> تشغيل الموسيقى تلقائيًا</label>
-<label class="toggle"><input id="m_loop" type="checkbox"> تكرار الموسيقى</label>
-<label class="toggle"><input id="m_showControl" type="checkbox"> إظهار زر التحكم بالموسيقى</label>
-<label class="toggle"><input id="s_hero" type="checkbox"> قسم الافتتاح</label>
-<label class="toggle"><input id="s_countdown" type="checkbox"> العد التنازلي</label>
-<label class="toggle"><input id="s_message" type="checkbox"> الرسالة</label>
-<label class="toggle"><input id="s_location" type="checkbox"> الموقع</label>
-<label class="toggle"><input id="s_rsvp" type="checkbox"> RSVP</label>
-<label class="toggle"><input id="s_gallery" type="checkbox"> معرض الصور</label>
-</div>
 
-<div class="section"><h3>7) تعديل متقدم</h3><label>CSS مخصص</label><textarea id="customCSS"></textarea></div>
-
-<div class="section">
-<button onclick="save()">حفظ</button><button class="secondary" onclick="previewCurrent()">معاينة</button>
-<button class="secondary" onclick="cancelEdit()">إلغاء</button><button class="danger" id="deleteBtn" onclick="removeCurrent()">حذف الدعوة</button>
-<div id="saveStatus" class="status"></div>
-</div>
-</div>
-</div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script>
-const {createClient}=supabase, client=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-let currentId=null, editing=false;
 
-const arabicFonts=["Cairo", "Amiri", "Tajawal", "Almarai", "Changa", "El Messiri", "Reem Kufi", "Reem Kufi Fun", "Reem Kufi Ink", "Lateef", "Scheherazade New", "Noto Kufi Arabic", "Noto Naskh Arabic", "Noto Sans Arabic", "Aref Ruqaa", "Aref Ruqaa Ink", "Markazi Text", "Mada", "Harmattan", "Mirza", "Rakkas", "Lemonada", "Baloo Bhaijaan 2", "Katibeh", "Marhey", "Readex Pro", "IBM Plex Sans Arabic", "Noto Nastaliq Urdu", "Gulzar", "Alexandria", "Vazirmatn", "Lalezar", "Kufam", "Jomhuria", "Ruwudu", "Blaka", "Blaka Hollow", "Noto Sans Arabic UI", "Noto Sans Arabic Condensed", "Noto Sans Arabic SemiCondensed", "Noto Kufi Arabic ExtraLight", "Noto Kufi Arabic Medium", "Noto Kufi Arabic SemiBold", "Noto Naskh Arabic Medium", "Noto Naskh Arabic SemiBold", "Noto Naskh Arabic Bold", "Amiri Quran", "Amiri Quran Colored", "Noto Sans Arabic Medium", "Noto Sans Arabic Bold"];
-const englishFonts=["Roboto", "Open Sans", "Lato", "Montserrat", "Poppins", "Inter", "Oswald", "Raleway", "Nunito", "Merriweather", "Playfair Display", "Bebas Neue", "Source Sans 3", "Ubuntu", "Work Sans", "DM Sans", "PT Sans", "Fira Sans", "Josefin Sans", "Libre Baskerville", "Cormorant Garamond", "Manrope", "Quicksand", "Cabin", "Mulish", "Archivo", "Karla", "Heebo", "Barlow", "Space Grotesk"];
-const fontParts={
-  page:"الصفحة كاملة", opening:"عنوان الافتتاح", groom:"اسم العريس", bride:"اسم العروس",
-  names:"منطقة الأسماء", message:"رسالة الدعوة", headings:"العناوين", date:"التاريخ",
-  time:"الوقت", venue:"اسم القاعة", address:"العنوان", countdown:"العد التنازلي",
-  buttons:"الأزرار", rsvp:"قسم تأكيد الحضور", gallery:"معرض الصور", footer:"التذييل"
+<script src="config.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* =========================
+   اختصار العناصر
+========================= */
+
+const $ = id =>
+  document.getElementById(id);
+
+
+
+/* =========================
+   حماية النصوص
+========================= */
+
+function escapeHTML(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /[&<>"']/g,
+    character => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[character])
+  );
+
+}
+
+
+
+/* =========================
+   التحقق من Supabase
+========================= */
+
+if(
+  typeof supabase === "undefined"
+){
+
+  throw new Error(
+    "تعذر تحميل مكتبة Supabase."
+  );
+
+}
+
+
+if(
+  !window.SUPABASE_URL ||
+  !window.SUPABASE_ANON_KEY
+){
+
+  throw new Error(
+    "SUPABASE_URL أو SUPABASE_ANON_KEY غير موجود في config.js"
+  );
+
+}
+
+
+
+/* =========================
+   الاتصال بـ Supabase
+========================= */
+
+const client =
+  supabase.createClient(
+    window.SUPABASE_URL,
+    window.SUPABASE_ANON_KEY
+  );
+
+
+
+/* =========================
+   المتغيرات
+========================= */
+
+let currentId = null;
+
+let editing = false;
+
+let recoveryMode = false;
+
+
+
+/* =========================
+   50 خطًا عربيًا
+========================= */
+
+const arabicFonts = [
+
+  "Cairo",
+  "Amiri",
+  "Tajawal",
+  "Almarai",
+  "Changa",
+
+  "El Messiri",
+  "Reem Kufi",
+  "Reem Kufi Fun",
+  "Reem Kufi Ink",
+  "Lateef",
+
+  "Scheherazade New",
+  "Noto Kufi Arabic",
+  "Noto Naskh Arabic",
+  "Noto Sans Arabic",
+  "Aref Ruqaa",
+
+  "Aref Ruqaa Ink",
+  "Markazi Text",
+  "Mada",
+  "Harmattan",
+  "Mirza",
+
+  "Rakkas",
+  "Lemonada",
+  "Baloo Bhaijaan 2",
+  "Katibeh",
+  "Marhey",
+
+  "Readex Pro",
+  "IBM Plex Sans Arabic",
+  "Noto Nastaliq Urdu",
+  "Gulzar",
+  "Alexandria",
+
+  "Vazirmatn",
+  "Lalezar",
+  "Kufam",
+  "Jomhuria",
+  "Ruwudu",
+
+  "Blaka",
+  "Blaka Hollow",
+  "Playpen Sans Arabic",
+  "Amiri Quran",
+  "Zain",
+
+  "Qahiri",
+  "Alkalami",
+  "Beiruti",
+  "Fustat",
+  "Handjet",
+
+  "Vibes",
+  "Estedad",
+  "Badeen Display",
+  "Parastoo",
+  "Alyamama"
+
+];
+
+
+
+/* =========================
+   30 خطًا إنجليزيًا
+========================= */
+
+const englishFonts = [
+
+  "Roboto",
+  "Open Sans",
+  "Lato",
+  "Montserrat",
+  "Poppins",
+
+  "Inter",
+  "Oswald",
+  "Raleway",
+  "Nunito",
+  "Merriweather",
+
+  "Playfair Display",
+  "Bebas Neue",
+  "Source Sans 3",
+  "Ubuntu",
+  "Work Sans",
+
+  "DM Sans",
+  "PT Sans",
+  "Fira Sans",
+  "Josefin Sans",
+  "Libre Baskerville",
+
+  "Cormorant Garamond",
+  "Manrope",
+  "Quicksand",
+  "Cabin",
+  "Mulish",
+
+  "Archivo",
+  "Karla",
+  "Heebo",
+  "Barlow",
+  "Space Grotesk"
+
+];
+
+
+
+/* =========================
+   أجزاء الخطوط
+========================= */
+
+const fontParts = {
+
+  page:
+    "الصفحة كاملة",
+
+  opening:
+    "عنوان الافتتاح",
+
+  groom:
+    "اسم العريس",
+
+  bride:
+    "اسم العروس",
+
+  names:
+    "منطقة الأسماء",
+
+  message:
+    "رسالة الدعوة",
+
+  headings:
+    "العناوين",
+
+  date:
+    "التاريخ",
+
+  time:
+    "الوقت",
+
+  venue:
+    "اسم القاعة",
+
+  address:
+    "العنوان",
+
+  countdown:
+    "العد التنازلي",
+
+  buttons:
+    "الأزرار",
+
+  rsvp:
+    "قسم تأكيد الحضور",
+
+  gallery:
+    "معرض الصور",
+
+  footer:
+    "التذييل"
+
 };
+
+
+
+/* =========================
+   خيارات الخطوط
+========================= */
 
 function fontOptions(selected){
-  const groups=[
-    ['خطوط عربية',arabicFonts],['خطوط إنجليزية',englishFonts]
+
+  const groups = [
+
+    [
+      "خطوط عربية",
+      arabicFonts
+    ],
+
+    [
+      "خطوط إنجليزية",
+      englishFonts
+    ]
+
   ];
-  return groups.map(([label,arr])=>'<optgroup label="'+label+'">'+arr.map(f=>'<option value="'+f+'" '+(f===selected?'selected':'')+'>'+f+'</option>').join('')+'</optgroup>').join('');
+
+
+  return groups
+  .map(([label,fonts]) => {
+
+    const options =
+      fonts
+
+      .map(font => {
+
+        const selectedAttribute =
+          font === selected
+          ? " selected"
+          : "";
+
+
+        return (
+          '<option value="' +
+          escapeHTML(font) +
+          '"' +
+          selectedAttribute +
+          ">" +
+          escapeHTML(font) +
+          "</option>"
+        );
+
+      })
+
+      .join("");
+
+
+    return (
+      '<optgroup label="' +
+      escapeHTML(label) +
+      '">' +
+      options +
+      "</optgroup>"
+    );
+
+  })
+
+  .join("");
+
 }
 
-fontControls.innerHTML=Object.entries(fontParts).map(([k,label])=>`
-<div><label>${label}</label>
-<select id="font_${k}" onchange="previewFont('${k}')"></select>
-<div id="prev_${k}" class="fontPreview">معاينة الخط — Wedding 2026</div></div>`).join('');
 
-const colorKeys=["background","background2","primary","secondary","text","heading","button","buttonText","border"];
-const colorLabels={background:"الخلفية",background2:"الخلفية الثانية",primary:"الرئيسي",secondary:"الثانوي",text:"النص",heading:"العناوين",button:"الأزرار",buttonText:"نص الأزرار",border:"الحدود"};
-colorControls.innerHTML=colorKeys.map(k=>`<div><label>${colorLabels[k]}</label><div class="colorRow"><input type="color" id="c_${k}_picker"><input id="c_${k}"></div></div>`).join('');
 
-const fields=["slug","groom","bride","dateText","timeText","venue","address","mapsUrl","countdown","message","music","musicVolume","rsvpPhone","published"];
+/* =========================
+   بناء قائمة الخطوط
+========================= */
 
-const defaultSettings={
- colors:{background:"#ffffff",background2:"#f7f3ee",primary:"#8b6f47",secondary:"#c6a96b",text:"#222222",heading:"#8b6f47",button:"#8b6f47",buttonText:"#ffffff",border:"#c6a96b"},
- fonts:{page:"Cairo",opening:"Amiri",groom:"Amiri",bride:"Amiri",names:"Amiri",message:"Cairo",headings:"Amiri",date:"Cairo",time:"Cairo",venue:"Cairo",address:"Cairo",countdown:"Cairo",buttons:"Cairo",rsvp:"Cairo",gallery:"Cairo",footer:"Cairo"},
- background:{type:"color",image:"",overlayOpacity:.20,blur:0},
- images:{cover:"",logo:"",groom:"",bride:"",gallery:[]},
- layout:{direction:"rtl",maxWidth:900,borderRadius:20,sectionSpacing:40},
- effects:{animations:true,animationType:"fade",shadows:true,particles:false},
- button:{borderRadius:12,showMap:true,showRSVP:true},
- music:{autoplay:true,loop:true,showControl:true},
- sections:{hero:true,countdown:true,message:true,location:true,rsvp:true,gallery:true},
- customCSS:""
+$("fontControls").innerHTML =
+
+  Object.entries(fontParts)
+
+  .map(([key,label]) => `
+
+    <div>
+
+      <label>
+        ${escapeHTML(label)}
+      </label>
+
+      <select
+        id="font_${key}"
+        onchange="previewFont('${key}')"
+      ></select>
+
+      <div
+        id="prev_${key}"
+        class="fontPreview"
+      >
+        معاينة الخط — Wedding 2026
+      </div>
+
+    </div>
+
+  `)
+
+  .join("");
+
+
+
+/* =========================
+   الألوان
+========================= */
+
+const colorKeys = [
+
+  "background",
+  "background2",
+  "primary",
+  "secondary",
+  "text",
+  "heading",
+  "button",
+  "buttonText",
+  "border"
+
+];
+
+
+const colorLabels = {
+
+  background:
+    "الخلفية",
+
+  background2:
+    "الخلفية الثانية",
+
+  primary:
+    "الرئيسي",
+
+  secondary:
+    "الثانوي",
+
+  text:
+    "النص",
+
+  heading:
+    "العناوين",
+
+  button:
+    "الأزرار",
+
+  buttonText:
+    "نص الأزرار",
+
+  border:
+    "الحدود"
+
 };
 
-const defaults={slug:"new-wedding",groom:"اسم العريس",bride:"اسم العروس",dateText:"الجمعة 00 / 00 / 2026",timeText:"الساعة 8:00 مساءً",venue:"اسم القاعة",address:"العنوان",mapsUrl:"https://maps.google.com/",countdown:"2026-12-31T20:00:00+03:00",message:"بكل حب وسرور نتشرف بحضوركم ومشاركتنا فرحتنا.",music:"",musicVolume:.45,rsvpPhone:"9640000000000",published:true,settings:defaultSettings};
+
+
+$("colorControls").innerHTML =
+
+  colorKeys
+
+  .map(key => `
+
+    <div>
+
+      <label>
+        ${escapeHTML(
+          colorLabels[key]
+        )}
+      </label>
+
+      <div class="colorRow">
+
+        <input
+          type="color"
+          id="c_${key}_picker"
+        >
+
+        <input
+          id="c_${key}"
+          autocomplete="off"
+        >
+
+      </div>
+
+    </div>
+
+  `)
+
+  .join("");
+
+
+
+/* =========================
+   أعمدة Supabase
+========================= */
+
+const fields = [
+
+  "slug",
+  "groom",
+  "bride",
+  "dateText",
+  "timeText",
+  "venue",
+  "address",
+  "mapsUrl",
+  "countdown",
+  "message",
+  "music",
+  "musicVolume",
+  "rsvpPhone",
+  "published"
+
+];
+
+
+
+/* =========================
+   الإعدادات الافتراضية
+========================= */
+
+const defaultSettings = {
+
+  colors:{
+
+    background:
+      "#ffffff",
+
+    background2:
+      "#f7f3ee",
+
+    primary:
+      "#8b6f47",
+
+    secondary:
+      "#c6a96b",
+
+    text:
+      "#222222",
+
+    heading:
+      "#8b6f47",
+
+    button:
+      "#8b6f47",
+
+    buttonText:
+      "#ffffff",
+
+    border:
+      "#c6a96b"
+
+  },
+
+
+  fonts:{
+
+    page:
+      "Cairo",
+
+    opening:
+      "Amiri",
+
+    groom:
+      "Amiri",
+
+    bride:
+      "Amiri",
+
+    names:
+      "Amiri",
+
+    message:
+      "Cairo",
+
+    headings:
+      "Amiri",
+
+    date:
+      "Cairo",
+
+    time:
+      "Cairo",
+
+    venue:
+      "Cairo",
+
+    address:
+      "Cairo",
+
+    countdown:
+      "Cairo",
+
+    buttons:
+      "Cairo",
+
+    rsvp:
+      "Cairo",
+
+    gallery:
+      "Cairo",
+
+    footer:
+      "Cairo"
+
+  },
+
+
+  background:{
+
+    type:
+      "color",
+
+    image:
+      "",
+
+    overlayOpacity:
+      .20,
+
+    blur:
+      0
+
+  },
+
+
+  images:{
+
+    cover:
+      "",
+
+    logo:
+      "",
+
+    groom:
+      "",
+
+    bride:
+      "",
+
+    gallery:
+      []
+
+  },
+
+
+  layout:{
+
+    direction:
+      "rtl",
+
+    maxWidth:
+      900,
+
+    borderRadius:
+      20,
+
+    sectionSpacing:
+      40
+
+  },
+
+
+  effects:{
+
+    animations:
+      true,
+
+    animationType:
+      "fade",
+
+    shadows:
+      true,
+
+    particles:
+      false
+
+  },
+
+
+  button:{
+
+    borderRadius:
+      12,
+
+    showMap:
+      true,
+
+    showRSVP:
+      true
+
+  },
+
+
+  music:{
+
+    autoplay:
+      true,
+
+    loop:
+      true,
+
+    showControl:
+      true
+
+  },
+
+
+  sections:{
+
+    hero:
+      true,
+
+    countdown:
+      true,
+
+    message:
+      true,
+
+    location:
+      true,
+
+    rsvp:
+      true,
+
+    gallery:
+      true
+
+  },
+
+
+  customCSS:
+    ""
+
+};
+
+
+
+/* =========================
+   بيانات دعوة جديدة
+========================= */
+
+const defaults = {
+
+  slug:
+    "new-wedding",
+
+  groom:
+    "اسم العريس",
+
+  bride:
+    "اسم العروس",
+
+  dateText:
+    "الجمعة 00 / 00 / 2026",
+
+  timeText:
+    "الساعة 8:00 مساءً",
+
+  venue:
+    "اسم القاعة",
+
+  address:
+    "العنوان",
+
+  mapsUrl:
+    "https://maps.google.com/",
+
+  countdown:
+    "2026-12-31T20:00:00+03:00",
+
+  message:
+    "بكل حب وسرور نتشرف بحضوركم ومشاركتنا فرحتنا.",
+
+  music:
+    "",
+
+  musicVolume:
+    .45,
+
+  rsvpPhone:
+    "9640000000000",
+
+  published:
+    true,
+
+  settings:
+    defaultSettings
+
+};
+
+
+
+/* =========================
+   تحميل Google Font
+========================= */
 
 function loadGoogleFont(name){
- if(!name)return;
- const id='gf_'+name.replace(/[^a-z0-9]/gi,'_');
- if(document.getElementById(id))return;
- const l=document.createElement('link');l.id=id;l.rel='stylesheet';
- l.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(name).replace(/%20/g,'+')+':wght@300;400;500;600;700&display=swap';
- document.head.appendChild(l);
+
+  if(!name){
+    return;
+  }
+
+
+  const id =
+    "gf_" +
+    name.replace(
+      /[^a-z0-9]/gi,
+      "_"
+    );
+
+
+  if($(id)){
+    return;
+  }
+
+
+  const link =
+    document.createElement(
+      "link"
+    );
+
+
+  link.id =
+    id;
+
+
+  link.rel =
+    "stylesheet";
+
+
+  link.href =
+    "https://fonts.googleapis.com/css2?family=" +
+    encodeURIComponent(name)
+    .replace(/%20/g,"+") +
+    "&display=swap";
+
+
+  document.head
+  .appendChild(link);
+
 }
 
-function previewFont(k){
- const v=document.getElementById('font_'+k).value;
- loadGoogleFont(v);
- document.getElementById('prev_'+k).style.fontFamily='"'+v+'", sans-serif';
+
+
+/* =========================
+   معاينة الخط
+========================= */
+
+function previewFont(key){
+
+  const select =
+    $("font_" + key);
+
+
+  if(!select){
+    return;
+  }
+
+
+  const font =
+    select.value;
+
+
+  loadGoogleFont(
+    font
+  );
+
+
+  const preview =
+    $("prev_" + key);
+
+
+  if(preview){
+
+    preview.style.fontFamily =
+      '"' +
+      font +
+      '", sans-serif';
+
+  }
+
 }
 
-function deepMerge(base,extra){const out=JSON.parse(JSON.stringify(base));for(const k in extra||{}){if(extra[k]&&typeof extra[k]==='object'&&!Array.isArray(extra[k])&&typeof out[k]==='object'&&!Array.isArray(out[k]))out[k]=deepMerge(out[k],extra[k]);else out[k]=extra[k]}return out}
-function status(el,text,ok=false){el.textContent=text;el.className="status "+(ok?"ok":"err");el.style.display="block"}
-async function login(){let q=await client.auth.signInWithPassword({email:email.value,password:password.value});if(q.error)return status(loginStatus,q.error.message);boot()}
-async function resetPassword(){let q=await client.auth.resetPasswordForEmail(email.value,{redirectTo:location.origin+"/admin.html"});if(q.error)return status(loginStatus,q.error.message);status(loginStatus,"تم إرسال رابط الاستعادة.",true)}
-async function boot(){let q=await client.auth.getUser();if(!q.data.user)return;login.style.display="none";app.style.display="block";setupColors();loadList()}
-function setupColors(){colorKeys.forEach(k=>{const t=document.getElementById("c_"+k),p=document.getElementById("c_"+k+"_picker");p.oninput=()=>t.value=p.value;t.oninput=()=>{if(/^#[0-9A-Fa-f]{6}$/.test(t.value))p.value=t.value}})}
-async function loadList(){let q=await client.from("invitations").select("id,slug,groom,bride,dateText,venue,published,updated_at").order("updated_at",{ascending:false});if(q.error)return alert(q.error.message);list.innerHTML=q.data.map(x=>`<div class="item"><h3>${esc(x.groom)} & ${esc(x.bride)}</h3><div>${esc(x.dateText)}<br>${esc(x.venue)}</div><p class="slug">/${esc(x.slug)}</p><span class="badge ${x.published?'on':'off'}">${x.published?'منشورة':'مسودة'}</span><div style="margin-top:12px"><button onclick="editInvitation('${x.id}')">تعديل</button><button class="secondary" onclick="preview('${encodeURIComponent(x.slug)}')">معاينة</button></div></div>`).join("")||'<p class="muted">لا توجد دعوات بعد.</p>'}
-async function editInvitation(id){let q=await client.from("invitations").select("*").eq("id",id).single();if(q.error)return alert(q.error.message);currentId=id;editing=true;editor.style.display="block";editorTitle.textContent="تعديل الدعوة";deleteBtn.style.display="inline-block";fill(q.data);scrollTo({top:document.body.scrollHeight,behavior:"smooth"})}
-function newInvitation(){currentId=null;editing=false;editor.style.display="block";editorTitle.textContent="إنشاء دعوة جديدة";deleteBtn.style.display="none";fill(defaults);scrollTo({top:document.body.scrollHeight,behavior:"smooth"})}
-function fill(x){
- fields.forEach(k=>{let e=document.getElementById(k);if(e)e.value=x[k]??""});
- const s=deepMerge(defaultSettings,x.settings||{});
- colorKeys.forEach(k=>{document.getElementById("c_"+k).value=s.colors[k];document.getElementById("c_"+k+"_picker").value=s.colors[k]});
- Object.keys(fontParts).forEach(k=>{const sel=document.getElementById('font_'+k);sel.innerHTML=fontOptions(s.fonts[k]||'Cairo');sel.value=s.fonts[k]||'Cairo';previewFont(k)});
- bg_type.value=s.background.type;bg_image.value=s.background.image;bg_overlayOpacity.value=s.background.overlayOpacity;bg_blur.value=s.background.blur;
- img_cover.value=s.images.cover;img_logo.value=s.images.logo;img_groom.value=s.images.groom;img_bride.value=s.images.bride;img_gallery.value=(s.images.gallery||[]).join("\n");
- l_direction.value=s.layout.direction;l_maxWidth.value=s.layout.maxWidth;l_borderRadius.value=s.layout.borderRadius;l_sectionSpacing.value=s.layout.sectionSpacing;
- e_animations.checked=!!s.effects.animations;e_animationType.value=s.effects.animationType;e_shadows.checked=!!s.effects.shadows;e_particles.checked=!!s.effects.particles;
- b_borderRadius.value=s.button.borderRadius;b_showMap.checked=!!s.button.showMap;b_showRSVP.checked=!!s.button.showRSVP;
- m_autoplay.checked=!!s.music.autoplay;m_loop.checked=!!s.music.loop;m_showControl.checked=!!s.music.showControl;
- s_hero.checked=!!s.sections.hero;s_countdown.checked=!!s.sections.countdown;s_message.checked=!!s.sections.message;s_location.checked=!!s.sections.location;s_rsvp.checked=!!s.sections.rsvp;s_gallery.checked=!!s.sections.gallery;
- customCSS.value=s.customCSS||"";
+
+
+/* =========================
+   دمج settings
+========================= */
+
+function deepMerge(
+  base,
+  extra
+){
+
+  const result =
+    JSON.parse(
+      JSON.stringify(base)
+    );
+
+
+  if(
+    !extra ||
+    typeof extra !== "object"
+  ){
+
+    return result;
+
+  }
+
+
+  for(
+    const key
+    in extra
+  ){
+
+    if(
+      extra[key] &&
+      typeof extra[key] === "object" &&
+      !Array.isArray(extra[key]) &&
+      result[key] &&
+      typeof result[key] === "object" &&
+      !Array.isArray(result[key])
+    ){
+
+      result[key] =
+        deepMerge(
+          result[key],
+          extra[key]
+        );
+
+    }
+    else{
+
+      result[key] =
+        extra[key];
+
+    }
+
+  }
+
+
+  return result;
+
 }
-function collectSettings(){return {
- colors:Object.fromEntries(colorKeys.map(k=>[k,document.getElementById("c_"+k).value])),
- fonts:Object.fromEntries(Object.keys(fontParts).map(k=>[k,document.getElementById("font_"+k).value])),
- background:{type:bg_type.value,image:bg_image.value,overlayOpacity:Number(bg_overlayOpacity.value)||0,blur:Number(bg_blur.value)||0},
- images:{cover:img_cover.value,logo:img_logo.value,groom:img_groom.value,bride:img_bride.value,gallery:img_gallery.value.split("\n").map(x=>x.trim()).filter(Boolean)},
- layout:{direction:l_direction.value,maxWidth:Number(l_maxWidth.value)||900,borderRadius:Number(l_borderRadius.value)||20,sectionSpacing:Number(l_sectionSpacing.value)||40},
- effects:{animations:e_animations.checked,animationType:e_animationType.value,shadows:e_shadows.checked,particles:e_particles.checked},
- button:{borderRadius:Number(b_borderRadius.value)||12,showMap:b_showMap.checked,showRSVP:b_showRSVP.checked},
- music:{autoplay:m_autoplay.checked,loop:m_loop.checked,showControl:m_showControl.checked},
- sections:{hero:s_hero.checked,countdown:s_countdown.checked,message:s_message.checked,location:s_location.checked,rsvp:s_rsvp.checked,gallery:s_gallery.checked},
- customCSS:customCSS.value
-}}
-function collect(){let x={};fields.forEach(k=>x[k]=document.getElementById(k).value);x.musicVolume=Number(x.musicVolume)||.45;x.published=x.published==="true";x.settings=collectSettings();return x}
-async function save(){let x=collect();if(!/^[a-z0-9-]+$/.test(x.slug))return status(saveStatus,"الـ slug يجب أن يحتوي أحرف إنجليزية صغيرة وأرقام وشرطة فقط.");let q=editing?await client.from("invitations").update(x).eq("id",currentId):await client.from("invitations").insert(x);if(q.error)return status(saveStatus,q.error.message);status(saveStatus,"تم الحفظ بنجاح.",true);editor.style.display="none";loadList()}
-async function removeCurrent(){if(!currentId||!confirm("حذف الدعوة نهائياً؟"))return;let q=await client.from("invitations").delete().eq("id",currentId);if(q.error)return alert(q.error.message);editor.style.display="none";loadList()}
-function cancelEdit(){editor.style.display="none"}
-function preview(slug){let base=PUBLIC_BASE_URL||location.href.replace(/admin\.html.*$/,"");window.open(base+"index.html?invite="+slug,"_blank")}
-function previewCurrent(){preview(encodeURIComponent(document.getElementById("slug").value.trim()))}
-async function logout(){await client.auth.signOut();location.reload()}
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+
+
+/* =========================
+   رسالة حالة
+========================= */
+
+function status(
+  element,
+  text,
+  ok=false
+){
+
+  if(!element){
+    return;
+  }
+
+
+  element.textContent =
+    text;
+
+
+  element.className =
+    "status " +
+    (
+      ok
+      ? "ok"
+      : "err"
+    );
+
+
+  element.style.display =
+    "block";
+
+}
+
+
+
+/* =========================
+   شاشة تسجيل الدخول
+========================= */
+
+function showLogin(){
+
+  recoveryMode =
+    false;
+
+
+  $("loginBox").style.display =
+    "block";
+
+
+  $("recoveryBox").style.display =
+    "none";
+
+
+  $("app").style.display =
+    "none";
+
+}
+
+
+
+/* =========================
+   شاشة استعادة كلمة المرور
+========================= */
+
+function showRecovery(){
+
+  recoveryMode =
+    true;
+
+
+  $("loginBox").style.display =
+    "none";
+
+
+  $("app").style.display =
+    "none";
+
+
+  $("recoveryBox").style.display =
+    "block";
+
+}
+
+
+
+/* =========================
+   تسجيل الدخول
+========================= */
+
+async function loginDesigner(){
+
+  const messageBox =
+    $("loginStatus");
+
+
+  const loginBtn =
+    $("loginBtn");
+
+
+  messageBox.style.display =
+    "none";
+
+
+  const emailValue =
+    $("email")
+    .value
+    .trim();
+
+
+  const passwordValue =
+    $("password")
+    .value;
+
+
+  if(!emailValue){
+
+    return status(
+      messageBox,
+      "أدخل البريد الإلكتروني."
+    );
+
+  }
+
+
+  if(!passwordValue){
+
+    return status(
+      messageBox,
+      "أدخل كلمة المرور."
+    );
+
+  }
+
+
+  loginBtn.disabled =
+    true;
+
+
+  loginBtn.textContent =
+    "جارٍ الدخول...";
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await client.auth
+    .signInWithPassword({
+
+      email:
+        emailValue,
+
+      password:
+        passwordValue
+
+    });
+
+
+    if(error){
+
+      status(
+        messageBox,
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    if(
+      !data ||
+      !data.user
+    ){
+
+      status(
+        messageBox,
+        "لم يتم تسجيل الدخول."
+      );
+
+      return;
+
+    }
+
+
+    await openDashboard();
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    status(
+      messageBox,
+      "حدث خطأ أثناء تسجيل الدخول: " +
+      error.message
+    );
+
+  }
+  finally{
+
+    loginBtn.disabled =
+      false;
+
+
+    loginBtn.textContent =
+      "دخول";
+
+  }
+
+}
+
+
+
+/* =========================
+   إرسال استعادة كلمة المرور
+========================= */
+
+async function resetPassword(){
+
+  const emailValue =
+    $("email")
+    .value
+    .trim();
+
+
+  const messageBox =
+    $("loginStatus");
+
+
+  messageBox.style.display =
+    "none";
+
+
+  if(!emailValue){
+
+    return status(
+      messageBox,
+      "أدخل بريدك الإلكتروني أولًا."
+    );
+
+  }
+
+
+  try{
+
+    const redirectUrl =
+      new URL(
+        "admin.html",
+        location.href
+      );
+
+
+    redirectUrl.search =
+      "";
+
+
+    redirectUrl.hash =
+      "";
+
+
+    const {
+      error
+    } =
+    await client.auth
+    .resetPasswordForEmail(
+      emailValue,
+      {
+        redirectTo:
+          redirectUrl.href
+      }
+    );
+
+
+    if(error){
+
+      return status(
+        messageBox,
+        error.message
+      );
+
+    }
+
+
+    status(
+      messageBox,
+      "تم إرسال رابط استعادة كلمة المرور إلى بريدك.",
+      true
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    status(
+      messageBox,
+      "تعذر إرسال رابط الاستعادة: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   تغيير كلمة المرور
+========================= */
+
+async function updatePassword(){
+
+  const messageBox =
+    $("recoveryStatus");
+
+
+  const button =
+    $("updatePasswordBtn");
+
+
+  messageBox.style.display =
+    "none";
+
+
+  const password1 =
+    $("newPassword")
+    .value;
+
+
+  const password2 =
+    $("confirmNewPassword")
+    .value;
+
+
+  if(!password1){
+
+    return status(
+      messageBox,
+      "أدخل كلمة المرور الجديدة."
+    );
+
+  }
+
+
+  if(
+    password1.length < 6
+  ){
+
+    return status(
+      messageBox,
+      "يجب أن تتكون كلمة المرور من 6 أحرف أو أرقام على الأقل."
+    );
+
+  }
+
+
+  if(
+    password1 !==
+    password2
+  ){
+
+    return status(
+      messageBox,
+      "كلمتا المرور غير متطابقتين."
+    );
+
+  }
+
+
+  button.disabled =
+    true;
+
+
+  try{
+
+    const {
+      error
+    } =
+    await client.auth
+    .updateUser({
+
+      password:
+        password1
+
+    });
+
+
+    if(error){
+
+      status(
+        messageBox,
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    $("newPassword").value =
+      "";
+
+
+    $("confirmNewPassword").value =
+      "";
+
+
+    recoveryMode =
+      false;
+
+
+    await openDashboard();
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    status(
+      messageBox,
+      "تعذر تحديث كلمة المرور: " +
+      error.message
+    );
+
+  }
+  finally{
+
+    button.disabled =
+      false;
+
+  }
+
+}
+
+
+
+/* =========================
+   فتح لوحة الإدارة
+========================= */
+
+async function openDashboard(){
+
+  recoveryMode =
+    false;
+
+
+  $("loginBox").style.display =
+    "none";
+
+
+  $("recoveryBox").style.display =
+    "none";
+
+
+  $("app").style.display =
+    "block";
+
+
+  setupColors();
+
+
+  await loadList();
+
+}
+
+
+
+/* =========================
+   فحص الجلسة
+========================= */
+
+async function boot(){
+
+  try{
+
+    if(recoveryMode){
+      return;
+    }
+
+
+    const {
+      data,
+      error
+    } =
+    await client.auth
+    .getUser();
+
+
+    if(
+      error ||
+      !data ||
+      !data.user
+    ){
+
+      if(error){
+
+        console.error(
+          error
+        );
+
+      }
+
+
+      showLogin();
+
+      return;
+
+    }
+
+
+    await openDashboard();
+
+  }
+  catch(error){
+
+    console.error(
+      "Boot error:",
+      error
+    );
+
+
+    showLogin();
+
+
+    status(
+      $("loginStatus"),
+      "حدث خطأ أثناء فتح لوحة الإدارة: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   منتقي الألوان
+========================= */
+
+function setupColors(){
+
+  colorKeys.forEach(key => {
+
+    const textInput =
+      $("c_" + key);
+
+
+    const picker =
+      $(
+        "c_" +
+        key +
+        "_picker"
+      );
+
+
+    if(
+      !textInput ||
+      !picker
+    ){
+
+      return;
+
+    }
+
+
+    picker.oninput =
+      () => {
+
+        textInput.value =
+          picker.value;
+
+      };
+
+
+    textInput.oninput =
+      () => {
+
+        const value =
+          textInput.value
+          .trim();
+
+
+        if(
+          /^#[0-9A-Fa-f]{6}$/
+          .test(value)
+        ){
+
+          picker.value =
+            value;
+
+        }
+
+      };
+
+  });
+
+}
+
+
+
+/* =========================
+   تحميل الدعوات
+========================= */
+
+async function loadList(){
+
+  const listBox =
+    $("list");
+
+
+  listBox.innerHTML =
+    '<p class="muted">جاري تحميل الدعوات...</p>';
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await client
+    .from("invitations")
+    .select(
+      "id,slug,groom,bride,dateText,venue,published,updated_at"
+    )
+    .order(
+      "updated_at",
+      {
+        ascending:false
+      }
+    );
+
+
+    if(error){
+
+      console.error(
+        error
+      );
+
+
+      listBox.innerHTML =
+        '<div class="status err" style="display:block">' +
+        escapeHTML(
+          error.message
+        ) +
+        "</div>";
+
+
+      return;
+
+    }
+
+
+    const rows =
+      Array.isArray(data)
+      ? data
+      : [];
+
+
+    if(
+      rows.length === 0
+    ){
+
+      listBox.innerHTML =
+        '<p class="muted">لا توجد دعوات بعد.</p>';
+
+      return;
+
+    }
+
+
+    listBox.innerHTML =
+      rows
+
+      .map(item => {
+
+        const id =
+          String(
+            item.id ??
+            ""
+          );
+
+
+        const slug =
+          String(
+            item.slug ??
+            ""
+          );
+
+
+        return `
+
+        <div class="item">
+
+          <h3>
+            ${escapeHTML(item.groom)}
+            &amp;
+            ${escapeHTML(item.bride)}
+          </h3>
+
+          <div>
+
+            ${escapeHTML(item.dateText)}
+
+            <br>
+
+            ${escapeHTML(item.venue)}
+
+          </div>
+
+          <p class="slug">
+            /${escapeHTML(slug)}
+          </p>
+
+          <span
+            class="badge ${
+              item.published
+              ? "on"
+              : "off"
+            }"
+          >
+
+            ${
+              item.published
+              ? "منشورة"
+              : "مسودة"
+            }
+
+          </span>
+
+          <div style="margin-top:12px">
+
+            <button
+              type="button"
+              onclick="editInvitation('${escapeHTML(id)}')"
+            >
+              تعديل
+            </button>
+
+            <button
+              type="button"
+              class="secondary"
+              onclick="previewInvitation('${encodeURIComponent(slug)}')"
+            >
+              معاينة
+            </button>
+
+          </div>
+
+        </div>
+
+        `;
+
+      })
+
+      .join("");
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    listBox.innerHTML =
+      '<div class="status err" style="display:block">' +
+      escapeHTML(
+        "تعذر تحميل الدعوات: " +
+        error.message
+      ) +
+      "</div>";
+
+  }
+
+}
+
+
+
+/* =========================
+   فتح دعوة للتعديل
+========================= */
+
+async function editInvitation(id){
+
+  if(!id){
+
+    alert(
+      "معرّف الدعوة غير صالح."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await client
+    .from("invitations")
+    .select("*")
+    .eq(
+      "id",
+      id
+    )
+    .single();
+
+
+    if(error){
+
+      alert(
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    if(!data){
+
+      alert(
+        "لم يتم العثور على الدعوة."
+      );
+
+      return;
+
+    }
+
+
+    currentId =
+      id;
+
+
+    editing =
+      true;
+
+
+    $("editor").style.display =
+      "block";
+
+
+    $("editorTitle").textContent =
+      "تعديل الدعوة";
+
+
+    $("deleteBtn").style.display =
+      "inline-block";
+
+
+    $("saveStatus").style.display =
+      "none";
+
+
+    fill(
+      data
+    );
+
+
+    window.scrollTo({
+
+      top:
+        document.body
+        .scrollHeight,
+
+      behavior:
+        "smooth"
+
+    });
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "تعذر فتح الدعوة: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   دعوة جديدة
+========================= */
+
+function newInvitation(){
+
+  currentId =
+    null;
+
+
+  editing =
+    false;
+
+
+  $("editor").style.display =
+    "block";
+
+
+  $("editorTitle").textContent =
+    "إنشاء دعوة جديدة";
+
+
+  $("deleteBtn").style.display =
+    "none";
+
+
+  $("saveStatus").style.display =
+    "none";
+
+
+  fill(
+    JSON.parse(
+      JSON.stringify(defaults)
+    )
+  );
+
+
+  window.scrollTo({
+
+    top:
+      document.body
+      .scrollHeight,
+
+    behavior:
+      "smooth"
+
+  });
+
+}
+
+
+
+/* =========================
+   تعبئة المحرر
+========================= */
+
+function fill(data){
+
+  const safeData =
+    data &&
+    typeof data === "object"
+    ? data
+    : {};
+
+
+  fields.forEach(key => {
+
+    const element =
+      $(key);
+
+
+    if(element){
+
+      element.value =
+        safeData[key] ??
+        "";
+
+    }
+
+  });
+
+
+  const settings =
+    deepMerge(
+      defaultSettings,
+      safeData.settings || {}
+    );
+
+
+  colorKeys.forEach(key => {
+
+    const value =
+      settings.colors[key] ||
+      defaultSettings.colors[key];
+
+
+    const textField =
+      $("c_" + key);
+
+
+    const picker =
+      $(
+        "c_" +
+        key +
+        "_picker"
+      );
+
+
+    if(textField){
+
+      textField.value =
+        value;
+
+    }
+
+
+    if(
+      picker &&
+      /^#[0-9A-Fa-f]{6}$/
+      .test(value)
+    ){
+
+      picker.value =
+        value;
+
+    }
+
+  });
+
+
+  Object.keys(fontParts)
+  .forEach(key => {
+
+    const select =
+      $("font_" + key);
+
+
+    if(!select){
+      return;
+    }
+
+
+    const font =
+      settings.fonts[key] ||
+      "Cairo";
+
+
+    select.innerHTML =
+      fontOptions(font);
+
+
+    if(
+      [...select.options]
+      .some(
+        option =>
+          option.value === font
+      )
+    ){
+
+      select.value =
+        font;
+
+    }
+    else{
+
+      select.value =
+        "Cairo";
+
+    }
+
+
+    previewFont(
+      key
+    );
+
+  });
+
+
+  $("bg_type").value =
+    settings.background.type ||
+    "color";
+
+
+  $("bg_image").value =
+    settings.background.image ||
+    "";
+
+
+  $("bg_overlayOpacity").value =
+    settings.background.overlayOpacity;
+
+
+  $("bg_blur").value =
+    settings.background.blur;
+
+
+  $("img_cover").value =
+    settings.images.cover ||
+    "";
+
+
+  $("img_logo").value =
+    settings.images.logo ||
+    "";
+
+
+  $("img_groom").value =
+    settings.images.groom ||
+    "";
+
+
+  $("img_bride").value =
+    settings.images.bride ||
+    "";
+
+
+  $("img_gallery").value =
+    Array.isArray(
+      settings.images.gallery
+    )
+    ? settings.images.gallery
+      .join("\n")
+    : "";
+
+
+  $("l_direction").value =
+    settings.layout.direction ||
+    "rtl";
+
+
+  $("l_maxWidth").value =
+    settings.layout.maxWidth;
+
+
+  $("l_borderRadius").value =
+    settings.layout.borderRadius;
+
+
+  $("l_sectionSpacing").value =
+    settings.layout.sectionSpacing;
+
+
+  $("e_animations").checked =
+    Boolean(
+      settings.effects.animations
+    );
+
+
+  $("e_animationType").value =
+    settings.effects.animationType ||
+    "fade";
+
+
+  $("e_shadows").checked =
+    Boolean(
+      settings.effects.shadows
+    );
+
+
+  $("e_particles").checked =
+    Boolean(
+      settings.effects.particles
+    );
+
+
+  $("b_borderRadius").value =
+    settings.button.borderRadius;
+
+
+  $("b_showMap").checked =
+    Boolean(
+      settings.button.showMap
+    );
+
+
+  $("b_showRSVP").checked =
+    Boolean(
+      settings.button.showRSVP
+    );
+
+
+  $("m_autoplay").checked =
+    Boolean(
+      settings.music.autoplay
+    );
+
+
+  $("m_loop").checked =
+    Boolean(
+      settings.music.loop
+    );
+
+
+  $("m_showControl").checked =
+    Boolean(
+      settings.music.showControl
+    );
+
+
+  $("s_hero").checked =
+    Boolean(
+      settings.sections.hero
+    );
+
+
+  $("s_countdown").checked =
+    Boolean(
+      settings.sections.countdown
+    );
+
+
+  $("s_message").checked =
+    Boolean(
+      settings.sections.message
+    );
+
+
+  $("s_location").checked =
+    Boolean(
+      settings.sections.location
+    );
+
+
+  $("s_rsvp").checked =
+    Boolean(
+      settings.sections.rsvp
+    );
+
+
+  $("s_gallery").checked =
+    Boolean(
+      settings.sections.gallery
+    );
+
+
+  $("customCSS").value =
+    settings.customCSS ||
+    "";
+
+}
+
+
+
+/* =========================
+   تحديد رقم
+========================= */
+
+function clampNumber(
+  value,
+  minimum,
+  maximum,
+  fallback
+){
+
+  const raw =
+    String(
+      value ??
+      ""
+    )
+    .trim();
+
+
+  if(raw === ""){
+
+    return fallback;
+
+  }
+
+
+  const number =
+    Number(raw);
+
+
+  if(
+    !Number.isFinite(number)
+  ){
+
+    return fallback;
+
+  }
+
+
+  return Math.min(
+    maximum,
+    Math.max(
+      minimum,
+      number
+    )
+  );
+
+}
+
+
+
+/* =========================
+   جمع إعدادات التصميم
+========================= */
+
+function collectSettings(){
+
+  return {
+
+    colors:
+      Object.fromEntries(
+
+        colorKeys.map(key => [
+
+          key,
+
+          $("c_" + key)
+          .value
+          .trim()
+
+        ])
+
+      ),
+
+
+    fonts:
+      Object.fromEntries(
+
+        Object.keys(fontParts)
+        .map(key => [
+
+          key,
+
+          $("font_" + key)
+          .value
+
+        ])
+
+      ),
+
+
+    background:{
+
+      type:
+        $("bg_type").value,
+
+
+      image:
+        $("bg_image")
+        .value
+        .trim(),
+
+
+      overlayOpacity:
+        clampNumber(
+          $("bg_overlayOpacity")
+          .value,
+          0,
+          1,
+          .20
+        ),
+
+
+      blur:
+        clampNumber(
+          $("bg_blur")
+          .value,
+          0,
+          30,
+          0
+        )
+
+    },
+
+
+    images:{
+
+      cover:
+        $("img_cover")
+        .value
+        .trim(),
+
+
+      logo:
+        $("img_logo")
+        .value
+        .trim(),
+
+
+      groom:
+        $("img_groom")
+        .value
+        .trim(),
+
+
+      bride:
+        $("img_bride")
+        .value
+        .trim(),
+
+
+      gallery:
+        $("img_gallery")
+        .value
+        .split("\n")
+        .map(
+          value =>
+            value.trim()
+        )
+        .filter(Boolean)
+
+    },
+
+
+    layout:{
+
+      direction:
+        $("l_direction").value,
+
+
+      maxWidth:
+        clampNumber(
+          $("l_maxWidth")
+          .value,
+          320,
+          5000,
+          900
+        ),
+
+
+      borderRadius:
+        clampNumber(
+          $("l_borderRadius")
+          .value,
+          0,
+          500,
+          20
+        ),
+
+
+      sectionSpacing:
+        clampNumber(
+          $("l_sectionSpacing")
+          .value,
+          0,
+          1000,
+          40
+        )
+
+    },
+
+
+    effects:{
+
+      animations:
+        $("e_animations")
+        .checked,
+
+
+      animationType:
+        $("e_animationType")
+        .value,
+
+
+      shadows:
+        $("e_shadows")
+        .checked,
+
+
+      particles:
+        $("e_particles")
+        .checked
+
+    },
+
+
+    button:{
+
+      borderRadius:
+        clampNumber(
+          $("b_borderRadius")
+          .value,
+          0,
+          500,
+          12
+        ),
+
+
+      showMap:
+        $("b_showMap")
+        .checked,
+
+
+      showRSVP:
+        $("b_showRSVP")
+        .checked
+
+    },
+
+
+    music:{
+
+      autoplay:
+        $("m_autoplay")
+        .checked,
+
+
+      loop:
+        $("m_loop")
+        .checked,
+
+
+      showControl:
+        $("m_showControl")
+        .checked
+
+    },
+
+
+    sections:{
+
+      hero:
+        $("s_hero")
+        .checked,
+
+
+      countdown:
+        $("s_countdown")
+        .checked,
+
+
+      message:
+        $("s_message")
+        .checked,
+
+
+      location:
+        $("s_location")
+        .checked,
+
+
+      rsvp:
+        $("s_rsvp")
+        .checked,
+
+
+      gallery:
+        $("s_gallery")
+        .checked
+
+    },
+
+
+    customCSS:
+      $("customCSS")
+      .value
+
+  };
+
+}
+
+
+
+/* =========================
+   جمع بيانات الدعوة
+========================= */
+
+function collect(){
+
+  const data =
+    {};
+
+
+  fields.forEach(key => {
+
+    const element =
+      $(key);
+
+
+    data[key] =
+      element
+      ? element.value
+      : "";
+
+  });
+
+
+  const rawVolume =
+    String(
+      data.musicVolume ??
+      ""
+    )
+    .trim();
+
+
+  if(
+    rawVolume === ""
+  ){
+
+    data.musicVolume =
+      .45;
+
+  }
+  else{
+
+    const volume =
+      Number(
+        rawVolume
+      );
+
+
+    data.musicVolume =
+      Number.isFinite(volume)
+      ? Math.min(
+          1,
+          Math.max(
+            0,
+            volume
+          )
+        )
+      : .45;
+
+  }
+
+
+  data.published =
+    data.published ===
+    "true";
+
+
+  data.settings =
+    collectSettings();
+
+
+  return data;
+
+}
+
+
+
+/* =========================
+   بيانات Supabase
+========================= */
+
+function makeDatabasePayload(data){
+
+  return {
+
+    slug:
+      data.slug,
+
+    groom:
+      data.groom,
+
+    bride:
+      data.bride,
+
+    dateText:
+      data.dateText,
+
+    timeText:
+      data.timeText,
+
+    venue:
+      data.venue,
+
+    address:
+      data.address,
+
+    mapsUrl:
+      data.mapsUrl,
+
+    countdown:
+      data.countdown,
+
+    message:
+      data.message,
+
+    music:
+      data.music,
+
+    musicVolume:
+      data.musicVolume,
+
+    rsvpPhone:
+      data.rsvpPhone,
+
+    published:
+      data.published,
+
+    settings:
+      data.settings,
+
+    updated_at:
+      new Date()
+      .toISOString()
+
+  };
+
+}
+
+
+
+/* =========================
+   حفظ الدعوة
+========================= */
+
+async function saveInvitation(){
+
+  const messageBox =
+    $("saveStatus");
+
+
+  const saveButton =
+    $("saveBtn");
+
+
+  messageBox.style.display =
+    "none";
+
+
+  const data =
+    collect();
+
+
+  data.slug =
+    String(
+      data.slug ||
+      ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+  $("slug").value =
+    data.slug;
+
+
+  if(!data.slug){
+
+    return status(
+      messageBox,
+      "أدخل معرّف الرابط Slug."
+    );
+
+  }
+
+
+  if(
+    !/^[a-z0-9-]+$/
+    .test(
+      data.slug
+    )
+  ){
+
+    return status(
+      messageBox,
+      "الـ Slug يجب أن يحتوي أحرفًا إنجليزية صغيرة وأرقامًا وشرطة - فقط."
+    );
+
+  }
+
+
+  const payload =
+    makeDatabasePayload(
+      data
+    );
+
+
+  saveButton.disabled =
+    true;
+
+
+  saveButton.textContent =
+    "جارٍ الحفظ...";
+
+
+  try{
+
+    let result;
+
+
+    if(editing){
+
+      if(!currentId){
+
+        status(
+          messageBox,
+          "تعذر تحديد الدعوة المراد تعديلها."
+        );
+
+        return;
+
+      }
+
+
+      result =
+        await client
+        .from("invitations")
+        .update(payload)
+        .eq(
+          "id",
+          currentId
+        );
+
+    }
+    else{
+
+      result =
+        await client
+        .from("invitations")
+        .insert(payload);
+
+    }
+
+
+    if(result.error){
+
+      console.error(
+        result.error
+      );
+
+
+      status(
+        messageBox,
+        result.error.message
+      );
+
+      return;
+
+    }
+
+
+    status(
+      messageBox,
+      "تم الحفظ بنجاح.",
+      true
+    );
+
+
+    currentId =
+      null;
+
+
+    editing =
+      false;
+
+
+    await loadList();
+
+
+    setTimeout(
+      () => {
+
+        $("editor").style.display =
+          "none";
+
+      },
+      500
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    status(
+      messageBox,
+      "تعذر حفظ الدعوة: " +
+      error.message
+    );
+
+  }
+  finally{
+
+    saveButton.disabled =
+      false;
+
+
+    saveButton.textContent =
+      "حفظ";
+
+  }
+
+}
+
+
+
+/* =========================
+   حذف دعوة
+========================= */
+
+async function removeCurrent(){
+
+  if(!currentId){
+
+    alert(
+      "لا توجد دعوة محددة للحذف."
+    );
+
+    return;
+
+  }
+
+
+  const confirmed =
+    confirm(
+      "هل تريد حذف الدعوة نهائيًا؟"
+    );
+
+
+  if(!confirmed){
+
+    return;
+
+  }
+
+
+  try{
+
+    const {
+      error
+    } =
+    await client
+    .from("invitations")
+    .delete()
+    .eq(
+      "id",
+      currentId
+    );
+
+
+    if(error){
+
+      alert(
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    currentId =
+      null;
+
+
+    editing =
+      false;
+
+
+    $("editor").style.display =
+      "none";
+
+
+    await loadList();
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "تعذر حذف الدعوة: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   إلغاء التعديل
+========================= */
+
+function cancelEdit(){
+
+  currentId =
+    null;
+
+
+  editing =
+    false;
+
+
+  $("editor").style.display =
+    "none";
+
+
+  $("saveStatus").style.display =
+    "none";
+
+}
+
+
+
+/* =========================
+   المعاينة
+========================= */
+
+function previewInvitation(slug){
+
+  if(!slug){
+
+    alert(
+      "معرّف الدعوة غير موجود."
+    );
+
+    return;
+
+  }
+
+
+  let base =
+    window.PUBLIC_BASE_URL ||
+    "";
+
+
+  if(!base){
+
+    base =
+      location.href
+      .replace(
+        /admin\.html.*$/i,
+        ""
+      );
+
+  }
+
+
+  if(
+    base &&
+    !base.endsWith("/")
+  ){
+
+    base += "/";
+
+  }
+
+
+  const previewUrl =
+    base +
+    "index.html?invite=" +
+    slug;
+
+
+  window.open(
+    previewUrl,
+    "_blank",
+    "noopener"
+  );
+
+}
+
+
+
+/* =========================
+   معاينة الحالية
+========================= */
+
+function previewCurrent(){
+
+  const slug =
+    $("slug")
+    .value
+    .trim()
+    .toLowerCase();
+
+
+  if(!slug){
+
+    alert(
+      "أدخل معرّف الرابط أولًا."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !/^[a-z0-9-]+$/
+    .test(slug)
+  ){
+
+    alert(
+      "معرّف الرابط غير صالح."
+    );
+
+    return;
+
+  }
+
+
+  previewInvitation(
+    encodeURIComponent(
+      slug
+    )
+  );
+
+}
+
+
+
+/* =========================
+   تسجيل الخروج
+========================= */
+
+async function logout(){
+
+  try{
+
+    const {
+      error
+    } =
+    await client.auth
+    .signOut();
+
+
+    if(error){
+
+      alert(
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    currentId =
+      null;
+
+
+    editing =
+      false;
+
+
+    recoveryMode =
+      false;
+
+
+    $("password").value =
+      "";
+
+
+    showLogin();
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "تعذر تسجيل الخروج: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   مراقبة تسجيل الدخول
+========================= */
+
+client.auth.onAuthStateChange(
+  (
+    event,
+    session
+  ) => {
+
+    if(
+      event ===
+      "PASSWORD_RECOVERY"
+    ){
+
+      showRecovery();
+
+      return;
+
+    }
+
+
+    if(
+      event ===
+      "SIGNED_OUT"
+    ){
+
+      recoveryMode =
+        false;
+
+
+      currentId =
+        null;
+
+
+      editing =
+        false;
+
+
+      showLogin();
+
+    }
+
+  }
+);
+
+
+
+/* =========================
+   تشغيل الصفحة
+========================= */
+
 boot();
+
 </script>
+
 </body>
+
 </html>
